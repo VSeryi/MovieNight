@@ -2,7 +2,6 @@ package com.tmdb.movie.ui.detail.sheet
 
 import android.content.res.Configuration
 import android.graphics.drawable.BitmapDrawable
-import android.util.Log
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -118,7 +117,12 @@ fun VideosBottomSheetContent(
             LazyColumn {
                 items(videos.size) { index ->
                     VideosComponent(
-                        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = if (index == videos.size - 1) 16.dp else 8.dp),
+                        modifier = Modifier.padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                            top = 8.dp,
+                            bottom = if (index == videos.size - 1) 16.dp else 8.dp
+                        ),
                         video = videos[index],
                         onVideoClick = onVideoClick,
                     )
@@ -135,9 +139,11 @@ fun VideosComponent(
     onVideoClick: (String?, Boolean) -> Unit,
 ) {
     val context = LocalContext.current
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)?.toBitmap()
+            ?.apply {
+                eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+            }
     Box(
         modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
     ) {
@@ -150,7 +156,12 @@ fun VideosComponent(
             model = ImageRequest.Builder(LocalContext.current)
                 .placeholder(BitmapDrawable(context.resources, placeholderBitmap))
                 .error(BitmapDrawable(context.resources, placeholderBitmap))
-                .data(String.format(context.getString(R.string.key_youtube_video_preview_url), video.key))
+                .data(
+                    String.format(
+                        context.getString(R.string.key_youtube_video_preview_url),
+                        video.key
+                    )
+                )
                 .crossfade(true)
                 .build(),
             contentScale = ContentScale.Crop,

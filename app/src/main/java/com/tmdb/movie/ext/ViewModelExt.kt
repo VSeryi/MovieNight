@@ -32,7 +32,6 @@ fun createHiltViewModelFactory(
     extrasProducer: (Bundle?) -> Bundle?
 ): ViewModelProvider.Factory? = when (viewModelStoreOwner) {
     is NavBackStackEntry -> {
-        val navBackStackEntry = viewModelStoreOwner as NavBackStackEntry
         val activity = LocalContext.current.let {
             var ctx = it
             while (ctx is ContextWrapper) {
@@ -48,11 +47,12 @@ fun createHiltViewModelFactory(
         }
         HiltViewModelFactory.createInternal(
             activity,
-            navBackStackEntry,
-            extrasProducer(navBackStackEntry.arguments),
-            navBackStackEntry.defaultViewModelProviderFactory,
+            viewModelStoreOwner,
+            extrasProducer(viewModelStoreOwner.arguments),
+            viewModelStoreOwner.defaultViewModelProviderFactory,
         )
     }
+
     is ComponentActivity -> {
         HiltViewModelFactory.createInternal(
             viewModelStoreOwner,
@@ -65,6 +65,7 @@ fun createHiltViewModelFactory(
             )
         )
     }
+
     else -> {
         // Use the default factory provided by the ViewModelStoreOwner
         // and assume it is an @AndroidEntryPoint annotated fragment

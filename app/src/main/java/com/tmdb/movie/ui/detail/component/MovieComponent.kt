@@ -27,7 +27,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -59,17 +59,16 @@ import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.google.accompanist.placeholder.PlaceholderDefaults
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.shimmerHighlightColor
-import com.google.accompanist.placeholder.placeholder
-import com.google.accompanist.placeholder.shimmer
 import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarStyle
 import com.tmdb.movie.R
 import com.tmdb.movie.component.AutoResizeText
 import com.tmdb.movie.component.FontSizeRange
+import com.tmdb.movie.component.PlaceholderDefaults
+import com.tmdb.movie.component.PlaceholderHighlight
 import com.tmdb.movie.component.ProfileTitleComponent
+import com.tmdb.movie.component.placeholder
+import com.tmdb.movie.component.shimmer
 import com.tmdb.movie.data.Cast
 import com.tmdb.movie.data.Credits
 import com.tmdb.movie.data.Genre
@@ -89,9 +88,11 @@ fun MovieBackdropLayout(
     onBuildImage: (String?, @ImageType Int) -> String? = { url, _ -> url },
 ) {
     val context = LocalContext.current
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)?.toBitmap()
+            ?.apply {
+                eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+            }
 
     Box(modifier = Modifier.fillMaxWidth()) {
         AsyncImage(
@@ -99,7 +100,8 @@ fun MovieBackdropLayout(
             model = ImageRequest.Builder(LocalContext.current)
                 .placeholder(BitmapDrawable(context.resources, placeholderBitmap))
                 .error(BitmapDrawable(context.resources, placeholderBitmap))
-                .data(onBuildImage(movieDetails?.backdropPath, ImageType.BACKDROP)).crossfade(true).build(),
+                .data(onBuildImage(movieDetails?.backdropPath, ImageType.BACKDROP)).crossfade(true)
+                .build(),
             contentScale = ContentScale.FillWidth,
             contentDescription = ""
         )
@@ -181,7 +183,10 @@ fun MovieMiddleLayout(
                         },
                         shape = MaterialTheme.shapes.large,
                         colors = AssistChipDefaults.assistChipColors(),
-                        border = AssistChipDefaults.assistChipBorder(borderColor = MaterialTheme.colorScheme.primary)
+                        border = AssistChipDefaults.assistChipBorder(
+                            enabled = false,
+                            borderColor = MaterialTheme.colorScheme.primary
+                        )
                     )
                     /*AssistChip(
                         modifier = Modifier.padding(
@@ -203,7 +208,7 @@ fun MovieMiddleLayout(
             }
         }
 
-        Divider(
+        HorizontalDivider(
             modifier = Modifier.padding(
                 start = 16.dp, end = 16.dp, top = 16.dp
             )
@@ -218,13 +223,17 @@ fun MovieMiddleLayout(
                 modifier = Modifier.weight(1.0f), horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 AutoResizeText(
-                    modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp), text = if (mediaType == MediaType.MOVIE) {
+                    modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp),
+                    text = if (mediaType == MediaType.MOVIE) {
                         movieDetails?.getFormatRevenue() ?: "0.00"
                     } else {
                         movieDetails?.popularity?.formatWithCommasAndDecimals(2) ?: "0.00"
-                    }, style = MaterialTheme.typography.bodyMedium.copy(
+                    },
+                    style = MaterialTheme.typography.bodyMedium.copy(
                         color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold
-                    ), fontSizeRange = FontSizeRange(12.sp, 16.sp), maxLines = 1
+                    ),
+                    fontSizeRange = FontSizeRange(12.sp, 16.sp),
+                    maxLines = 1
                 )
 
                 Text(
@@ -279,7 +288,8 @@ fun MovieMiddleLayout(
             ) {
                 AutoResizeText(
                     modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp),
-                    text = movieDetails?.getNiceDate(mediaType, false) ?: stringResource(id = R.string.key_unknown),
+                    text = movieDetails?.getNiceDate(mediaType, false)
+                        ?: stringResource(id = R.string.key_unknown),
                     style = MaterialTheme.typography.bodyMedium.copy(
                         color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold
                     ),
@@ -297,7 +307,7 @@ fun MovieMiddleLayout(
             }
         }
 
-        Divider(
+        HorizontalDivider(
             modifier = Modifier.padding(
                 start = 16.dp, end = 16.dp, top = 24.dp
             )
@@ -312,9 +322,10 @@ fun MovieOverviewLayout(
     onBuildImage: (String?, @ImageType Int) -> String? = { url, _ -> url },
 ) {
     val context = LocalContext.current
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
 
     Column(
         modifier = modifier
@@ -342,8 +353,10 @@ fun MovieOverviewLayout(
                         .padding(end = 16.dp)
                         .width(120.dp)
                         .clip(MaterialTheme.shapes.medium),
-                    model = ImageRequest.Builder(LocalContext.current).placeholder(BitmapDrawable(context.resources, placeholderBitmap))
-                        .error(BitmapDrawable(context.resources, placeholderBitmap)).data(onBuildImage(movieDetails?.posterPath, ImageType.POSTER))
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .placeholder(BitmapDrawable(context.resources, placeholderBitmap))
+                        .error(BitmapDrawable(context.resources, placeholderBitmap))
+                        .data(onBuildImage(movieDetails?.posterPath, ImageType.POSTER))
                         .crossfade(true).build(),
                     contentScale = ContentScale.FillWidth,
                     contentDescription = ""
@@ -399,16 +412,18 @@ fun MainCastComponent(
 ) {
     val context = LocalContext.current
     var isImageError by rememberSaveable { mutableStateOf(false) }
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
     Column(modifier = modifier.width(60.dp)) {
         if (isImageError) {
             Image(
                 modifier = Modifier
                     .size(60.dp)
                     .border(
-                        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary), shape = CircleShape
+                        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
+                        shape = CircleShape
                     )
                     .clip(CircleShape)
                     .clickable { onPeopleDetail(cast.id) },
@@ -422,12 +437,15 @@ fun MainCastComponent(
                 modifier = Modifier
                     .size(60.dp)
                     .border(
-                        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary), shape = CircleShape
+                        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
+                        shape = CircleShape
                     )
                     .clip(CircleShape)
                     .clickable { onPeopleDetail(cast.id) },
-                model = ImageRequest.Builder(LocalContext.current).placeholder(BitmapDrawable(context.resources, placeholderBitmap))
-                    .error(BitmapDrawable(context.resources, placeholderBitmap)).data(onBuildImage(cast.profilePath, ImageType.PROFILE))
+                model = ImageRequest.Builder(LocalContext.current)
+                    .placeholder(BitmapDrawable(context.resources, placeholderBitmap))
+                    .error(BitmapDrawable(context.resources, placeholderBitmap))
+                    .data(onBuildImage(cast.profilePath, ImageType.PROFILE))
                     .crossfade(true).listener(onError = { _, _ ->
                         isImageError = true
                     }).build(),
@@ -442,7 +460,8 @@ fun MainCastComponent(
                 .fillMaxWidth(),
             text = cast.name ?: "",
             style = MaterialTheme.typography.bodySmall.copy(
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f), lineHeight = 16.sp
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),
+                lineHeight = 16.sp
             ),
             maxLines = 2,
             minLines = 2,
@@ -498,9 +517,11 @@ fun VideoPagerComponent(
     onVideoClick: (String?, Boolean) -> Unit,
 ) {
     val context = LocalContext.current
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)?.toBitmap()
+            ?.apply {
+                eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+            }
     Box(
         modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
     ) {
@@ -513,7 +534,12 @@ fun VideoPagerComponent(
             model = ImageRequest.Builder(LocalContext.current)
                 .placeholder(BitmapDrawable(context.resources, placeholderBitmap))
                 .error(BitmapDrawable(context.resources, placeholderBitmap))
-                .data(String.format(context.getString(R.string.key_youtube_video_preview_url), video.key))
+                .data(
+                    String.format(
+                        context.getString(R.string.key_youtube_video_preview_url),
+                        video.key
+                    )
+                )
                 .crossfade(true)
                 .build(),
             contentScale = ContentScale.Crop,
@@ -542,15 +568,31 @@ fun MovieVideoComponentPreview() {
         title = "阿凡达：水之道",
         releaseDate = "2022-12-14",
         tagline = "传奇导演詹姆斯·卡梅隆全新巨作",
-        genres = listOf(Genre(id = 1, name = "动作"), Genre(id = 2, name = "冒险"), Genre(id = 3, name = "科幻")),
+        genres = listOf(
+            Genre(id = 1, name = "动作"),
+            Genre(id = 2, name = "冒险"),
+            Genre(id = 3, name = "科幻")
+        ),
         voteAverage = 7.655f,
         revenue = 232025.00,
         overview = "影片设定在《阿凡达》的剧情落幕十余年后，讲述了萨利一家（杰克、奈蒂莉和孩子们）的故事：危机未曾消散，一家人拼尽全力彼此守护、奋力求生，并历经艰险磨难。影片设定在《阿凡达》的剧情落幕十余年后，讲述了萨利一家（杰克、奈蒂莉和孩子们）的故事：危机未曾消散，一家人拼尽全力彼此守护、奋力求生，并历经艰险磨难。影片设定在《阿凡达》的剧情落幕十余年后，讲述了萨利一家（杰克、奈蒂莉和孩子们）的故事：危机未曾消散，一家人拼尽全力彼此守护、奋力求生，并历经艰险磨难。",
         credits = Credits(
             cast = listOf(
-                Cast(name = "Sam Worthington", character = "Jake Sully", profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"),
-                Cast(name = "Sam Worthington", character = "Jake Sully", profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"),
-                Cast(name = "Sam Worthington", character = "Jake Sully", profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"),
+                Cast(
+                    name = "Sam Worthington",
+                    character = "Jake Sully",
+                    profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"
+                ),
+                Cast(
+                    name = "Sam Worthington",
+                    character = "Jake Sully",
+                    profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"
+                ),
+                Cast(
+                    name = "Sam Worthington",
+                    character = "Jake Sully",
+                    profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"
+                ),
             ),
         ),
         videos = com.tmdb.movie.data.Videos(
@@ -767,7 +809,7 @@ fun MovieDetailLoadingComponent(isTv: Boolean = false) {
             }
         }
 
-        Divider(
+        HorizontalDivider(
             modifier = Modifier
                 .padding(
                     start = 16.dp, end = 16.dp, top = 24.dp
@@ -821,7 +863,9 @@ fun MovieDetailLoadingComponent(isTv: Boolean = false) {
                                     alpha = 0.25f
                                 )
                             )
-                        ), text = stringResource(id = R.string.key_revenue), style = MaterialTheme.typography.bodyMedium
+                        ),
+                    text = stringResource(id = R.string.key_revenue),
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
 
@@ -839,10 +883,17 @@ fun MovieDetailLoadingComponent(isTv: Boolean = false) {
                             alpha = 0.25f
                         )
                     )
-                ), value = 0f, style = RatingBarStyle.Fill(
-                    activeColor = MaterialTheme.colorScheme.primary,
-                    inActiveColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
-                ), size = 12.dp, spaceBetween = 2.dp, numOfStars = 5, onValueChange = {}, onRatingChanged = {})
+                ),
+                    value = 0f,
+                    style = RatingBarStyle.Fill(
+                        activeColor = MaterialTheme.colorScheme.primary,
+                        inActiveColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
+                    ),
+                    size = 12.dp,
+                    spaceBetween = 2.dp,
+                    numOfStars = 5,
+                    onValueChange = {},
+                    onRatingChanged = {})
 
                 Text(
                     modifier = Modifier
@@ -856,7 +907,9 @@ fun MovieDetailLoadingComponent(isTv: Boolean = false) {
                                     alpha = 0.25f
                                 )
                             )
-                        ), text = stringResource(R.string.key_vote_point), style = MaterialTheme.typography.bodyMedium
+                        ),
+                    text = stringResource(R.string.key_vote_point),
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
 
@@ -892,12 +945,14 @@ fun MovieDetailLoadingComponent(isTv: Boolean = false) {
                                     alpha = 0.25f
                                 )
                             )
-                        ), text = stringResource(R.string.key_release_date), style = MaterialTheme.typography.bodyMedium
+                        ),
+                    text = stringResource(R.string.key_release_date),
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }
 
-        Divider(
+        HorizontalDivider(
             modifier = Modifier
                 .padding(
                     start = 16.dp, end = 16.dp, top = 24.dp
@@ -974,9 +1029,12 @@ fun MovieDetailLoadingComponent(isTv: Boolean = false) {
                                             alpha = 0.25f
                                         )
                                     )
-                                ), text = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", style = MaterialTheme.typography.bodyMedium.copy(
+                                ),
+                            text = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                            style = MaterialTheme.typography.bodyMedium.copy(
                                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),
-                            ), maxLines = 1
+                            ),
+                            maxLines = 1
                         )
                     }
                 }
@@ -1015,7 +1073,8 @@ fun MovieDetailLoadingComponent(isTv: Boolean = false) {
                     Image(
                         modifier = Modifier
                             .padding(
-                                start = if (index == 0) 16.dp else 8.dp, end = if (index == 5) 16.dp else 8.dp
+                                start = if (index == 0) 16.dp else 8.dp,
+                                end = if (index == 5) 16.dp else 8.dp
                             )
                             .size(60.dp)
                             .placeholder(

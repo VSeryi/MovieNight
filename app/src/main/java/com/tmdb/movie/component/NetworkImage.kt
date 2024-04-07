@@ -25,11 +25,6 @@ import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
-import com.google.accompanist.placeholder.PlaceholderDefaults
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.shimmerHighlightColor
-import com.google.accompanist.placeholder.placeholder
-import com.google.accompanist.placeholder.shimmer
 import com.tmdb.movie.R
 import com.tmdb.movie.ui.theme.TMDBMovieTheme
 
@@ -39,9 +34,10 @@ fun NetworkHorizontalImage(
     imageUrl: String? = null,
 ) {
     val context = LocalContext.current
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.backdrop)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.backdrop)?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
 
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
@@ -56,7 +52,10 @@ fun NetworkHorizontalImage(
         is AsyncImagePainter.State.Error -> Box(
             modifier = modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f), RoundedCornerShape(8.dp))
+                .background(
+                    MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
+                    RoundedCornerShape(8.dp)
+                )
                 .clip(RoundedCornerShape(8.dp))
                 .clickable { },
             contentAlignment = Alignment.Center

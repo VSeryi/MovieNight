@@ -40,7 +40,8 @@ fun DiscoveryScreen(toDetail: (MediaItem?, @MediaType Int) -> Unit = { _, _ -> }
 
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-    val tabList = listOf(context.getString(R.string.key_movies), context.getString(R.string.key_tv_shows))
+    val tabList =
+        listOf(context.getString(R.string.key_movies), context.getString(R.string.key_tv_shows))
 
     // 顶部搜索区域高度
     var toolbarHeight by remember { mutableIntStateOf(283) }
@@ -77,17 +78,16 @@ fun DiscoveryScreen(toDetail: (MediaItem?, @MediaType Int) -> Unit = { _, _ -> }
             DiscoveryMovieRoute(
                 topHeight = toolbarHeight.pxToDp(),
                 mediaType = pageIndex,
-                onPullRefreshProgress = { },
                 toDetail = toDetail,
             )
         }
         DiscoveryTabRow(tabLists = tabList,
             modifier = Modifier
-            .onGloballyPositioned {
-                toolbarHeight = it.size.height
-            }
-            .offset { IntOffset(x = 0, y = toolbarOffsetHeightPx.floatValue.roundToInt()) }
-            .background(color = MaterialTheme.colorScheme.background),
+                .onGloballyPositioned {
+                    toolbarHeight = it.size.height
+                }
+                .offset { IntOffset(x = 0, y = toolbarOffsetHeightPx.floatValue.roundToInt()) }
+                .background(color = MaterialTheme.colorScheme.background),
             selectedTabIndex = pagerState.currentPage,
             onTabSelected = { index ->
                 coroutineScope.launch {

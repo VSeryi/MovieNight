@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -132,7 +131,10 @@ fun BackdropImages(
     images: List<MovieImage>,
     onBuildImage: (String?, @ImageType Int) -> String? = { url, _ -> url },
 ) {
-    val placeholderBitmap = AppCompatResources.getDrawable(LocalContext.current, R.drawable.image_placeholder_horizontal)?.toBitmap()?.apply {
+    val placeholderBitmap = AppCompatResources.getDrawable(
+        LocalContext.current,
+        R.drawable.image_placeholder_horizontal
+    )?.toBitmap()?.apply {
         eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
     }
     LazyColumn(modifier = modifier) {
@@ -140,7 +142,12 @@ fun BackdropImages(
             AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = if (index == images.size - 1) 16.dp else 8.dp)
+                    .padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                        top = 8.dp,
+                        bottom = if (index == images.size - 1) 16.dp else 8.dp
+                    )
                     .clip(MaterialTheme.shapes.medium)
                     .clickable { },
                 model = ImageRequest.Builder(LocalContext.current)
@@ -163,9 +170,11 @@ fun PosterImages(
     onBuildImage: (String?, @ImageType Int) -> String? = { url, _ -> url },
 ) {
 
-    val placeholderBitmap = AppCompatResources.getDrawable(LocalContext.current, R.drawable.image_placeholder)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(LocalContext.current, R.drawable.image_placeholder)
+            ?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
 
     LazyVerticalGrid(
         modifier = modifier,

@@ -1,8 +1,8 @@
 package com.tmdb.movie.ui.account.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -24,7 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tmdb.movie.R
 import com.tmdb.movie.data.AccountMediaType
-import com.tmdb.movie.ext.customTabIndicatorOffset
 import com.tmdb.movie.ui.theme.TMDBMovieTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,13 +53,15 @@ fun AccountMediaListsTopBar(
                 onBackClick(true)
             }) {
                 Icon(
-                    painter = painterResource(id = R.drawable.baseline_arrow_back_24), contentDescription = ""
+                    painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                    contentDescription = ""
                 )
             }
         },
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccountMediaListsTabRow(
     modifier: Modifier = Modifier,
@@ -75,15 +75,13 @@ fun AccountMediaListsTabRow(
         .padding(bottom = 8.dp),
         selectedTabIndex = selectedTabIndex,
         containerColor = Color.Transparent,
-        indicator = { tabPositions ->
-            if (selectedTabIndex < tabPositions.size) {
-                TabRowDefaults.PrimaryIndicator(
-                    modifier = Modifier
-                        .customTabIndicatorOffset(tabPositions[selectedTabIndex], 60.dp)
-                        .clip(RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp)),
-                    height = 3.dp,
-                )
-            }
+        indicator = {
+            TabRowDefaults.PrimaryIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(3.dp),
+                color = MaterialTheme.colorScheme.primary
+            )
         }) {
         tabLists.forEachIndexed { index, title ->
             Tab(

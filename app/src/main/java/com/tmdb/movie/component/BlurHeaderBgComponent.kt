@@ -40,7 +40,8 @@ fun BlurHeaderBgComponent(
     LaunchedEffect(key1 = imageUrl, key2 = bgImageSize) {
         if (useBlur && imageUrl.isNotEmpty() && bgImageSize != IntSize.Zero) {
             val bitmap = withContext(Dispatchers.IO) {
-                val b = Glide.with(context).asBitmap().load(imageUrl).submit(bgImageSize.width / scaleFactor, bgImageSize.height / scaleFactor).get()
+                val b = Glide.with(context).asBitmap().load(imageUrl)
+                    .submit(bgImageSize.width / scaleFactor, bgImageSize.height / scaleFactor).get()
                 Toolkit.blur(b, blurRadius)
             }
             blurBgBitmap = bitmap

@@ -68,8 +68,8 @@ import com.tmdb.movie.R
 import com.tmdb.movie.component.BlurHeaderBgComponent
 import com.tmdb.movie.data.ImageSize
 import com.tmdb.movie.data.ImageType
-import com.tmdb.movie.data.MediaType
 import com.tmdb.movie.data.MediaItem
+import com.tmdb.movie.data.MediaType
 import com.tmdb.movie.data.People
 import com.tmdb.movie.data.SearchHistory
 import com.tmdb.movie.data.SearchItem
@@ -285,6 +285,7 @@ fun HomeScreen(
         }
 
         Column(
+            modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TopSearchBar(

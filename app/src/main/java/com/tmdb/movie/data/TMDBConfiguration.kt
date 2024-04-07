@@ -1,4 +1,5 @@
 package com.tmdb.movie.data
+
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 

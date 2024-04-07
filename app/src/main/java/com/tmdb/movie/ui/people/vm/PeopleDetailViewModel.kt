@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tmdb.movie.data.PeopleCast
 import com.tmdb.movie.data.PeopleDetails
 import com.tmdb.movie.data.Result.Error
 import com.tmdb.movie.data.Result.Success

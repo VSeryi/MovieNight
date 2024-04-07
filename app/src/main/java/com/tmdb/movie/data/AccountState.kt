@@ -13,5 +13,5 @@ data class AccountState(
     @SerializedName("watchlist")
     val watchlist: Boolean = false
 ) {
-    
+
 }

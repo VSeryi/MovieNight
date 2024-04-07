@@ -8,11 +8,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,14 +30,13 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
 import coil.request.ImageRequest.Builder
-import com.google.accompanist.placeholder.PlaceholderDefaults
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.shimmerHighlightColor
-import com.google.accompanist.placeholder.placeholder
-import com.google.accompanist.placeholder.shimmer
 import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarStyle
 import com.tmdb.movie.R
+import com.tmdb.movie.component.PlaceholderDefaults
+import com.tmdb.movie.component.PlaceholderHighlight
+import com.tmdb.movie.component.placeholder
+import com.tmdb.movie.component.shimmer
 import com.tmdb.movie.data.ImageType
 import com.tmdb.movie.data.MediaItem
 import com.tmdb.movie.data.MediaType
@@ -167,7 +164,8 @@ fun PosterComponent(
                 )
                 RatingBar(
                     modifier = Modifier.padding(start = 4.dp),
-                    value = (movieItem?.voteAverage ?: 0f) / (if (mediaType == MediaType.MOVIE) 10 else 2),
+                    value = (movieItem?.voteAverage
+                        ?: 0f) / (if (mediaType == MediaType.MOVIE) 10 else 2),
                     style = RatingBarStyle.Fill(
                         activeColor = MaterialTheme.colorScheme.primary,
                         inActiveColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f),
@@ -182,7 +180,10 @@ fun PosterComponent(
             Text(
                 modifier = Modifier
                     .padding(start = 4.dp),
-                text = movieItem?.getNiceDate(mediaType = mediaType, isFormatShort = mediaType == MediaType.MOVIE)
+                text = movieItem?.getNiceDate(
+                    mediaType = mediaType,
+                    isFormatShort = mediaType == MediaType.MOVIE
+                )
                     ?: stringResource(id = R.string.key_unknown),
                 style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Normal)
             )

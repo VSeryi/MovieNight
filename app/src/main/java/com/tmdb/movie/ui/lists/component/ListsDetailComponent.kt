@@ -92,9 +92,10 @@ fun ListsDetailHeader(
     val scrollValue by rememberCurrentOffset(gridState)
     val context = LocalContext.current
     val placeholderBitmap =
-        AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)?.toBitmap()?.apply {
-            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-        }
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)?.toBitmap()
+            ?.apply {
+                eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+            }
 
     Box(modifier = Modifier.fillMaxWidth()) {
         AsyncImage(

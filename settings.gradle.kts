@@ -17,5 +17,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "TMDB Movie"
 include(":app")
-include(":lib-renderscript")
- 

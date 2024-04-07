@@ -15,7 +15,11 @@ fun formatLongToString(millis: Long, format: String = "yyyy-MM-dd"): String {
     return ""
 }
 
-fun niceDate(timeStr: String?, format: String = "yyyy-MM-dd", dateFormat: Int = DateFormat.SHORT): String? {
+fun niceDate(
+    timeStr: String?,
+    format: String = "yyyy-MM-dd",
+    dateFormat: Int = DateFormat.SHORT
+): String? {
     if (timeStr.isNullOrEmpty()) return null
 
     val sdf = SimpleDateFormat(format, Locale.getDefault())

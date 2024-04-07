@@ -1,7 +1,6 @@
 package com.tmdb.movie.ui.home.component
 
 import android.graphics.drawable.BitmapDrawable
-import android.util.Log
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -38,12 +37,11 @@ import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.google.accompanist.placeholder.PlaceholderDefaults
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.shimmerHighlightColor
-import com.google.accompanist.placeholder.placeholder
-import com.google.accompanist.placeholder.shimmer
 import com.tmdb.movie.R
+import com.tmdb.movie.component.PlaceholderDefaults
+import com.tmdb.movie.component.PlaceholderHighlight
+import com.tmdb.movie.component.placeholder
+import com.tmdb.movie.component.shimmer
 import com.tmdb.movie.data.ImageType
 import com.tmdb.movie.data.People
 import com.tmdb.movie.ui.home.vm.MovieLoadState
@@ -109,9 +107,10 @@ fun PeopleComponent(
 ) {
     val context = LocalContext.current
     var isImageError by rememberSaveable { mutableStateOf(false) }
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
     Column(modifier = modifier.width(80.dp)) {
         if (isImageError) {
             Image(
@@ -157,7 +156,10 @@ fun PeopleComponent(
                 .padding(top = 4.dp)
                 .fillMaxWidth(),
             text = people?.name ?: "",
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium, lineHeight = 16.sp),
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontWeight = FontWeight.Medium,
+                lineHeight = 16.sp
+            ),
             maxLines = 2,
             minLines = 2,
             textAlign = TextAlign.Center,

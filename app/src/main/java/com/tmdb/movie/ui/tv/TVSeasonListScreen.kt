@@ -82,7 +82,13 @@ fun TVSeasonListScreen(
             seasons = seasonInfo?.seasons,
             onBuildImage = onBuildImage,
             toSeasonDetail = {
-                toSeasonDetail(SeasonDetailParam(seasonInfo?.tvId ?: 0, seasonInfo?.tvName ?: "", it))
+                toSeasonDetail(
+                    SeasonDetailParam(
+                        seasonInfo?.tvId ?: 0,
+                        seasonInfo?.tvName ?: "",
+                        it
+                    )
+                )
             }
         )
 
@@ -153,7 +159,7 @@ fun PreviewTVSeasonListScreen() {
             )
         ),
         onBackClick = {},
-        onBuildImage = { url, type, size ->
+        onBuildImage = { _, _, _ ->
             ""
         },
         toSeasonDetail = { }

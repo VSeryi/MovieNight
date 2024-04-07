@@ -32,7 +32,8 @@ fun Modifier.customTabIndicatorOffset(
         targetValue = ((currentTabPosition.left + currentTabPosition.right - tabWidth) / 2),
         animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing), label = ""
     )
-    this.fillMaxWidth()
+    this
+        .fillMaxWidth()
         .wrapContentSize(Alignment.BottomStart)
         .offset(x = indicatorOffset)
         .width(currentTabWidth)

@@ -10,7 +10,7 @@ fun NavController.navigateToCreateList() {
     this.navigate(createListNavigationRoute)
 }
 
-fun NavGraphBuilder.createListScreen(onBackClick: (Boolean) -> Unit,) {
+fun NavGraphBuilder.createListScreen(onBackClick: (Boolean) -> Unit) {
     composable(route = createListNavigationRoute) {
         CreateListRoute(
             onBackClick = onBackClick

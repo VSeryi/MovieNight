@@ -18,7 +18,6 @@ import com.tmdb.movie.data.Episode
 import com.tmdb.movie.data.ImageSize
 import com.tmdb.movie.data.ImageType
 import com.tmdb.movie.data.Season
-import com.tmdb.movie.data.SeasonDetailParam
 import com.tmdb.movie.ui.theme.TMDBMovieTheme
 import com.tmdb.movie.ui.tv.component.SeasonDetailHeader
 import com.tmdb.movie.ui.tv.component.SeasonDetailTopBar

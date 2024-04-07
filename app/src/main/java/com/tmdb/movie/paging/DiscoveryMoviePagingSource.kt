@@ -16,7 +16,10 @@ class DiscoveryMoviePagingSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MediaItem> {
         return try {
             val nextPage: Int = params.key ?: 1
-            val data = if (discoveryType == 0) apiService.getDiscoveryMovies(nextPage) else apiService.getDiscoveryTV(nextPage)
+            val data =
+                if (discoveryType == 0) apiService.getDiscoveryMovies(nextPage) else apiService.getDiscoveryTV(
+                    nextPage
+                )
             val totalPage = data.totalPages
             val dataList: List<MediaItem> = data.results ?: emptyList()
             LoadResult.Page(

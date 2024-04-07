@@ -119,9 +119,10 @@ fun EpisodeHeader(
 
     val context = LocalContext.current
     val placeholderBitmap =
-        AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)?.toBitmap()?.apply {
-            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-        }
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)?.toBitmap()
+            ?.apply {
+                eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+            }
 
     Box(modifier = modifier.fillMaxWidth()) {
         AsyncImage(
@@ -195,7 +196,8 @@ fun EpisodeDetailTitle(
             modifier = modifier
                 .graphicsLayer {
                     val collapseRange: Float = headerHeight - topBarHeight
-                    val collapseFraction: Float = (scrollState.value.toFloat() / collapseRange).coerceIn(0f, 1f)
+                    val collapseFraction: Float =
+                        (scrollState.value.toFloat() / collapseRange).coerceIn(0f, 1f)
 
                     val scaleXY = lerp(
                         1.0f,

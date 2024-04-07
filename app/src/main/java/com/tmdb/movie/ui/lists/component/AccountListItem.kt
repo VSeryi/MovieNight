@@ -37,13 +37,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.Glide
-import com.google.accompanist.placeholder.PlaceholderDefaults
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.shimmerHighlightColor
-import com.google.accompanist.placeholder.placeholder
-import com.google.accompanist.placeholder.shimmer
 import com.google.android.renderscript.Toolkit
 import com.tmdb.movie.R
+import com.tmdb.movie.component.PlaceholderDefaults
+import com.tmdb.movie.component.PlaceholderHighlight
+import com.tmdb.movie.component.placeholder
+import com.tmdb.movie.component.shimmer
 import com.tmdb.movie.data.HomePopularMovie
 import com.tmdb.movie.data.ImageSize
 import com.tmdb.movie.data.ImageType
@@ -68,7 +67,13 @@ fun AccountListsItem(
     val imageUrl = if (cachedMovies.isEmpty()) {
         ""
     } else {
-        cachedMovies[mediaList.id % cachedMovies.size].backdropPath?.let { onBuildImage(it, ImageType.BACKDROP, ImageSize.SMALL) } ?: ""
+        cachedMovies[mediaList.id % cachedMovies.size].backdropPath?.let {
+            onBuildImage(
+                it,
+                ImageType.BACKDROP,
+                ImageSize.SMALL
+            )
+        } ?: ""
     }
     var bgImageSize by remember { mutableStateOf(IntSize.Zero) }
     var blurBgBitmap by remember { mutableStateOf<Bitmap?>(null) }
@@ -76,7 +81,8 @@ fun AccountListsItem(
     LaunchedEffect(key1 = imageUrl, key2 = bgImageSize) {
         if (imageUrl.isNotEmpty() && bgImageSize != IntSize.Zero) {
             val bitmap = withContext(Dispatchers.IO) {
-                val b = Glide.with(context).asBitmap().load(imageUrl).submit(bgImageSize.width / scaleFactor, bgImageSize.height / scaleFactor).get()
+                val b = Glide.with(context).asBitmap().load(imageUrl)
+                    .submit(bgImageSize.width / scaleFactor, bgImageSize.height / scaleFactor).get()
                 val canvas = Canvas(b)
                 val destColor = maskColor.copy(alpha = 0.5f)
                 canvas.drawColor(destColor.toArgb())
@@ -92,7 +98,15 @@ fun AccountListsItem(
             .height(120.dp)
             .clip(MaterialTheme.shapes.medium)
             .clickable {
-                toListsDetail(mediaList.id, cachedMovies[mediaList.id % cachedMovies.size].backdropPath?.let { onBuildImage(it, ImageType.BACKDROP, ImageSize.MEDIUM) } ?: "")
+                toListsDetail(
+                    mediaList.id,
+                    cachedMovies[mediaList.id % cachedMovies.size].backdropPath?.let {
+                        onBuildImage(
+                            it,
+                            ImageType.BACKDROP,
+                            ImageSize.MEDIUM
+                        )
+                    } ?: "")
             },
     ) {
         Box(
@@ -244,8 +258,18 @@ fun AccountListsItemPreview() {
                 itemCount = 10,
             ),
             cachedMovies = listOf(
-                HomePopularMovie(id = 299054, title = "Expend4bles", backdropPath = "/rMvPXy8PUjj1o8o1pzgQbdNCsvj.jpg", updatedAt = "2023-10-23"),
-                HomePopularMovie(id = 385687, title = "Fast X", backdropPath = "/4XM8DUTQb3lhLemJC51Jx4a2EuA.jpg", updatedAt = "2023-10-23"),
+                HomePopularMovie(
+                    id = 299054,
+                    title = "Expend4bles",
+                    backdropPath = "/rMvPXy8PUjj1o8o1pzgQbdNCsvj.jpg",
+                    updatedAt = "2023-10-23"
+                ),
+                HomePopularMovie(
+                    id = 385687,
+                    title = "Fast X",
+                    backdropPath = "/4XM8DUTQb3lhLemJC51Jx4a2EuA.jpg",
+                    updatedAt = "2023-10-23"
+                ),
                 HomePopularMovie(
                     id = 554600,
                     title = "Uri: The Surgical Strike",

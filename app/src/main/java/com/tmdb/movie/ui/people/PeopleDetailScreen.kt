@@ -59,8 +59,10 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun PeopleDetailRoute(
-    onBackClick: (Boolean) -> Unit, detailType: Int, // 0-首页进入 1-详情进入； 首页进入需要隐藏BottomBar，关闭时显示BottomBar
-    toMovieDetail: (Int, @MediaType Int) -> Unit, viewModel: PeopleDetailViewModel = hiltViewModel()
+    onBackClick: (Boolean) -> Unit,
+    detailType: Int, // 0-首页进入 1-详情进入； 首页进入需要隐藏BottomBar，关闭时显示BottomBar
+    toMovieDetail: (Int, @MediaType Int) -> Unit,
+    viewModel: PeopleDetailViewModel = hiltViewModel()
 ) {
 
     BackHandler { onBackClick(detailType == 0) }
@@ -114,7 +116,11 @@ fun PeopleDetailScreen(
             PeopleDetailUiState.Loading -> PeopleDetailLoadingPager(topBarHeight = topBarHeight)
             is PeopleDetailUiState.Success -> {
                 peopleName = peopleDetailUiState.data.name ?: ""
-                imageUrl = onBuildImage(peopleDetailUiState.data.profilePath, ImageType.PROFILE, ImageSize.SMALL) ?: ""
+                imageUrl = onBuildImage(
+                    peopleDetailUiState.data.profilePath,
+                    ImageType.PROFILE,
+                    ImageSize.SMALL
+                ) ?: ""
                 PeopleDetailComponent(
                     topBarHeight = topBarHeight,
                     scrollState = scrollState,
@@ -169,7 +175,8 @@ fun PeopleDetailTopBar(
                 onBackClick(true)
             }) {
                 Icon(
-                    painter = painterResource(id = R.drawable.baseline_arrow_back_24), contentDescription = ""
+                    painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                    contentDescription = ""
                 )
             }
         }, colors = TopAppBarDefaults.topAppBarColors(
@@ -192,13 +199,18 @@ fun PeopleDetailComponent(
     var showAllKnownForBottomSheet by remember { mutableStateOf(false) }
     val sortedCasts = peopleCredits?.sortedCasts
     if (showAllKnownForBottomSheet && sortedCasts != null) {
-        PeopleActingBottomSheet(name = peopleDetails.name ?: "", castLists = sortedCasts, onBottomSheetDismiss = {
-            showAllKnownForBottomSheet = false
-        }, onBuildImage = { url, type ->
-            onBuildImage(url, type, ImageSize.MEDIUM)
-        }, toMovieDetail = { id, type ->
-            toMovieDetail(id, type)
-        })
+        PeopleActingBottomSheet(
+            name = peopleDetails.name ?: "",
+            castLists = sortedCasts,
+            onBottomSheetDismiss = {
+                showAllKnownForBottomSheet = false
+            },
+            onBuildImage = { url, type ->
+                onBuildImage(url, type, ImageSize.MEDIUM)
+            },
+            toMovieDetail = { id, type ->
+                toMovieDetail(id, type)
+            })
     }
 
     Column(
@@ -214,7 +226,8 @@ fun PeopleDetailComponent(
             onPreviewImage = onPreviewImage,
         )
         PeopleBiographyComponent(
-            modifier = Modifier.padding(top = 24.dp), biography = peopleDetails.getPeopleBiography(LocalContext.current)
+            modifier = Modifier.padding(top = 24.dp),
+            biography = peopleDetails.getPeopleBiography(LocalContext.current)
         )
         if (peopleCredits?.knownForCredits?.isNotEmpty() == true) {
             PeopleKnownForComponent(modifier = Modifier.padding(top = 24.dp),

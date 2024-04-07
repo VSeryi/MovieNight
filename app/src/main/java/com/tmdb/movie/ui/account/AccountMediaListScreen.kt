@@ -63,7 +63,8 @@ fun AccountMediaListsScreen(
 
     val context = LocalContext.current
 
-    val tabList = listOf(context.getString(R.string.key_movies), context.getString(R.string.key_tv_shows))
+    val tabList =
+        listOf(context.getString(R.string.key_movies), context.getString(R.string.key_tv_shows))
 
     val pagerState = rememberPagerState(
         initialPage = 0,

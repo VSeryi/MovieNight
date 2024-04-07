@@ -18,8 +18,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,7 +30,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -59,7 +56,6 @@ import com.tmdb.movie.R
 import com.tmdb.movie.data.Episode
 import com.tmdb.movie.data.ImageSize
 import com.tmdb.movie.data.ImageType
-import com.tmdb.movie.data.SeasonDetailParam
 import com.tmdb.movie.ext.pxToDp
 import com.tmdb.movie.ui.theme.TMDBMovieTheme
 
@@ -73,8 +69,10 @@ fun SeasonEpisodeItem(
 ) {
     val context = LocalContext.current
     val placeholder by remember {
-        val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)?.toBitmap()
-            ?.apply { eraseColor(placeholderColor.toArgb()) }
+        val placeholderBitmap =
+            AppCompatResources.getDrawable(context, R.drawable.image_placeholder_horizontal)
+                ?.toBitmap()
+                ?.apply { eraseColor(placeholderColor.toArgb()) }
         mutableStateOf(BitmapDrawable(context.resources, placeholderBitmap))
     }
 
@@ -268,7 +266,10 @@ fun SeasonEpisodeItemPreview() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            start = 16.dp, end = 16.dp, top = 16.dp, bottom = if (index == episodes.size - 1) 16.dp else 0.dp
+                            start = 16.dp,
+                            end = 16.dp,
+                            top = 16.dp,
+                            bottom = if (index == episodes.size - 1) 16.dp else 0.dp
                         ),
                     episode = episodes[index],
                     onBuildImage = { _, _, _ -> null },

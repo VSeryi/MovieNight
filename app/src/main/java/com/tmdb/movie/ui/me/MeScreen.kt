@@ -18,7 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -71,9 +71,17 @@ fun MeRoute(
     LaunchedEffect(signOutState) {
         if (signOutState.isNotEmpty()) {
             if (signOutState.startsWith("success")) {
-                Toast.makeText(context, context.getString(R.string.key_sign_out_success), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.key_sign_out_success),
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
-                Toast.makeText(context, context.getString(R.string.key_sign_out_error), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.key_sign_out_error),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
         viewModel.signOut("")
@@ -162,7 +170,11 @@ fun MeScreen(
             Image(
                 modifier = Modifier
                     .padding(top = 56.dp)
-                    .border(width = 2.dp, color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+                    .border(
+                        width = 2.dp,
+                        color = MaterialTheme.colorScheme.primary,
+                        shape = CircleShape
+                    )
                     .size(120.dp)
                     .padding(6.dp)
                     .clip(CircleShape)
@@ -253,7 +265,7 @@ fun MeScreen(
                 Spacer(modifier = Modifier.weight(1f))
             }
 
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
             )
@@ -282,7 +294,7 @@ fun MeScreen(
                 Spacer(modifier = Modifier.weight(1f))
             }
 
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
             )
@@ -311,7 +323,7 @@ fun MeScreen(
                 Spacer(modifier = Modifier.weight(1f))
             }
 
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier.padding(horizontal = 16.dp),
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
             )
@@ -352,7 +364,8 @@ fun MeScreen(
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp, top = 16.dp)
                         .background(
-                            MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(8.dp)
+                            MaterialTheme.colorScheme.surfaceVariant,
+                            shape = RoundedCornerShape(8.dp)
                         )
                         .clip(RoundedCornerShape(8.dp))
                         .clickable { onSignOut() },

@@ -151,33 +151,41 @@ class MovieDetailViewModel @Inject constructor(
         )
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val mediaListUiStateTrigger: StateFlow<MediaListUiState> = triggerMediaListChannel.receiveAsFlow()
-        .flatMapLatest { repository.getAccountMediaLists(it) }
-        .map {
-            Log.d("sqsong", "getAccountMediaLists mediaListUiState: $it")
-            when (it) {
-                is Result.Success -> {
-                    MediaListUiState.Success(it.data)
+    val mediaListUiStateTrigger: StateFlow<MediaListUiState> =
+        triggerMediaListChannel.receiveAsFlow()
+            .flatMapLatest { repository.getAccountMediaLists(it) }
+            .map {
+                Log.d("sqsong", "getAccountMediaLists mediaListUiState: $it")
+                when (it) {
+                    is Result.Success -> {
+                        MediaListUiState.Success(it.data)
+                    }
+
+                    is Result.Error -> MediaListUiState.Error(
+                        it.exception?.message ?: "Unknown error"
+                    )
+
+                    Result.Loading -> MediaListUiState.Idle
                 }
-
-                is Result.Error -> MediaListUiState.Error(it.exception?.message ?: "Unknown error")
-
-                Result.Loading -> MediaListUiState.Idle
             }
-        }
-        .onEach {
-            _mediaListUiState.value = it
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = MediaListUiState.Idle,
-        )
+            .onEach {
+                _mediaListUiState.value = it
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = MediaListUiState.Idle,
+            )
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val addListTrigger: StateFlow<AddListUiState> = triggerAddListChannel.receiveAsFlow()
         .flatMapLatest {
-            repository.addMediaToList(it.sessionId, it.mediaId, it.listId, if (mediaType == MediaType.MOVIE) "movie" else "tv")
+            repository.addMediaToList(
+                it.sessionId,
+                it.mediaId,
+                it.listId,
+                if (mediaType == MediaType.MOVIE) "movie" else "tv"
+            )
         }.map {
             when (it) {
                 is Result.Success -> {

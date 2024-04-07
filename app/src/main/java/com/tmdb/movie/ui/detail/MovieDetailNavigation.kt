@@ -7,7 +7,6 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.tmdb.movie.data.MediaType
-import com.tmdb.movie.data.Season
 import com.tmdb.movie.data.SeasonDetailParam
 import com.tmdb.movie.data.SeasonInfo
 
@@ -32,7 +31,7 @@ fun NavController.navigateToMovieDetail(movieId: Int, type: Int = MediaType.MOVI
 }
 
 fun NavGraphBuilder.movieDetailScreen(
-    toLogin:() -> Unit,
+    toLogin: () -> Unit,
     onCreateList: () -> Unit,
     onBackClick: (Boolean) -> Unit,
     onNavigateToPeopleDetail: (Int) -> Unit,

@@ -137,9 +137,11 @@ fun MediaCasts(
     onPeopleDetail: (Int) -> Unit,
     onBuildImage: (String?, @ImageType Int) -> String?,
 ) {
-    val placeholderBitmap = AppCompatResources.getDrawable(LocalContext.current, R.drawable.image_placeholder)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(LocalContext.current, R.drawable.image_placeholder)
+            ?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
 
     LazyVerticalGrid(
         modifier = modifier,
@@ -158,7 +160,10 @@ fun MediaCasts(
                     .clickable { onPeopleDetail(casts[index].id) },
                 cast = casts[index],
                 onBuildImage = onBuildImage,
-                placeholderDrawable = BitmapDrawable(LocalContext.current.resources, placeholderBitmap),
+                placeholderDrawable = BitmapDrawable(
+                    LocalContext.current.resources,
+                    placeholderBitmap
+                ),
             )
         }
     }

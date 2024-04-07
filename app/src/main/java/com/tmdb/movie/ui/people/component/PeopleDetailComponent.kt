@@ -23,7 +23,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -77,9 +76,10 @@ fun PeopleDetailTopComponent(
     onPreviewImage: (String?) -> Unit = {},
 ) {
     val context = LocalContext.current
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
 
     Row(
         modifier = modifier
@@ -91,7 +91,13 @@ fun PeopleDetailTopComponent(
                 .width(120.dp)
                 .clip(MaterialTheme.shapes.small)
                 .clickable {
-                    onPreviewImage(onBuildImage(peopleDetails.profilePath, ImageType.PROFILE, ImageSize.LARGE))
+                    onPreviewImage(
+                        onBuildImage(
+                            peopleDetails.profilePath,
+                            ImageType.PROFILE,
+                            ImageSize.LARGE
+                        )
+                    )
                 },
             model = ImageRequest.Builder(LocalContext.current)
                 .placeholder(BitmapDrawable(context.resources, placeholderBitmap))
@@ -254,9 +260,10 @@ fun PeopleCastComponent(
     val date = peopleCast.getDate()
     val monthDay = peopleCast.getNiceMonthDay()
     var isImageError by rememberSaveable { mutableStateOf(false) }
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.poster)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.poster)?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
 
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
@@ -286,7 +293,11 @@ fun PeopleCastComponent(
                 Box(
                     modifier = Modifier
                         .size(45.dp)
-                        .border(2.dp, color = MaterialTheme.colorScheme.primary, shape = CircleShape),
+                        .border(
+                            2.dp,
+                            color = MaterialTheme.colorScheme.primary,
+                            shape = CircleShape
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
                     if (date.isNotEmpty()) {
@@ -322,7 +333,10 @@ fun PeopleCastComponent(
                     Box(
                         modifier = Modifier
                             .size(10.dp)
-                            .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape),
+                            .background(
+                                color = MaterialTheme.colorScheme.primary,
+                                shape = CircleShape
+                            ),
                     )
                 }
             }
@@ -367,7 +381,12 @@ fun PeopleCastComponent(
                         .width(100.dp)
                         .padding(top = if (monthDay.isEmpty()) 16.dp else 8.dp)
                         .clip(MaterialTheme.shapes.small)
-                        .clickable { toMovieDetail(peopleCast.id, peopleCast.getMovieType()) }) {
+                        .clickable {
+                            toMovieDetail(
+                                peopleCast.id,
+                                peopleCast.getMovieType()
+                            )
+                        }) {
                         Image(
                             modifier = Modifier,
                             painter = painter,
@@ -381,7 +400,11 @@ fun PeopleCastComponent(
                                     .align(Alignment.Center),
                                 painter = painterResource(id = R.drawable.baseline_broken_image),
                                 contentDescription = null,
-                                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)),
+                                colorFilter = ColorFilter.tint(
+                                    MaterialTheme.colorScheme.primary.copy(
+                                        alpha = 0.3f
+                                    )
+                                ),
                             )
                         }
                     }

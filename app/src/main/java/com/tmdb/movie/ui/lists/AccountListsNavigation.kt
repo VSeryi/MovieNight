@@ -12,7 +12,9 @@ internal const val accountIdArg = "accountId"
 private const val myListsNavigationRoute = "my_lists_navigation_route"
 
 internal class AccountArgs(val accountId: Int) {
-    constructor(savedStateHandle: SavedStateHandle) : this(savedStateHandle.get<Int>(accountIdArg) ?: 0)
+    constructor(savedStateHandle: SavedStateHandle) : this(
+        savedStateHandle.get<Int>(accountIdArg) ?: 0
+    )
 }
 
 fun NavController.navigateToAccountLists(accountId: Int, navOptions: NavOptions? = null) {

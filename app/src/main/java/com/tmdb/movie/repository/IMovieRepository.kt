@@ -75,15 +75,36 @@ interface IMovieRepository {
 
     fun signOut(sessionId: String): Flow<Result<Boolean>>
 
-    fun getAccountState(id: Int, sessionId: String, @MediaType mediaType: Int): Flow<Result<AccountState>>
+    fun getAccountState(
+        id: Int,
+        sessionId: String,
+        @MediaType mediaType: Int
+    ): Flow<Result<AccountState>>
 
-    fun markAsFavorite(accountId: Int, sessionId: String, @MediaType mediaType: Int, mediaId: Int, favorite: Boolean): Flow<Result<Boolean>>
+    fun markAsFavorite(
+        accountId: Int,
+        sessionId: String,
+        @MediaType mediaType: Int,
+        mediaId: Int,
+        favorite: Boolean
+    ): Flow<Result<Boolean>>
 
-    fun addToWatchlist(accountId: Int, sessionId: String, @MediaType mediaType: Int, mediaId: Int, watchlist: Boolean): Flow<Result<Boolean>>
+    fun addToWatchlist(
+        accountId: Int,
+        sessionId: String,
+        @MediaType mediaType: Int,
+        mediaId: Int,
+        watchlist: Boolean
+    ): Flow<Result<Boolean>>
 
     fun getAccountMediaLists(accountId: Int): Flow<Result<List<MediaList>?>>
 
-    fun addMediaToList(sessionId: String, mediaId: Int, listId: Int, mediaType: String): Flow<Result<ResponseResult>>
+    fun addMediaToList(
+        sessionId: String,
+        mediaId: Int,
+        listId: Int,
+        mediaType: String
+    ): Flow<Result<ResponseResult>>
 
     fun createList(sessionId: String, param: CreateListParam): Flow<Result<Boolean>>
 
@@ -101,7 +122,7 @@ interface IMovieRepository {
         @AccountMediaType accountMediaType: Int = 0
     ): AccountMediaListsPagingSource
 
-    fun getSeasonDetail(tvId: Int, seasonNumber: Int, ): Flow<Result<Season>>
+    fun getSeasonDetail(tvId: Int, seasonNumber: Int): Flow<Result<Season>>
 
-    fun getEpisodeDetail(tvId: Int, seasonNumber: Int, episodeNumber: Int, ): Flow<Result<Episode>>
+    fun getEpisodeDetail(tvId: Int, seasonNumber: Int, episodeNumber: Int): Flow<Result<Episode>>
 }

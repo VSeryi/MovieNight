@@ -15,12 +15,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -75,14 +75,14 @@ fun ThemeDialog(
     val configuration = LocalConfiguration.current
     val isDynamicTheme = useDynamicTheme && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
-    AlertDialog(
+    BasicAlertDialog(
+        onDismissRequest = { onDismiss() },
+        modifier = Modifier
+            .widthIn(max = configuration.screenWidthDp.dp - 80.dp),
         properties = DialogProperties(
             usePlatformDefaultWidth = false,
             dismissOnClickOutside = false
-        ),
-        modifier = Modifier
-            .widthIn(max = configuration.screenWidthDp.dp - 80.dp),
-        onDismissRequest = { onDismiss() },
+        )
     ) {
         Card(shape = MaterialTheme.shapes.extraLarge) {
             Text(
@@ -95,7 +95,7 @@ fun ThemeDialog(
                 style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
             )
 
-            Divider(
+            HorizontalDivider(
                 Modifier.padding(start = 24.dp, top = 16.dp),
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
             )

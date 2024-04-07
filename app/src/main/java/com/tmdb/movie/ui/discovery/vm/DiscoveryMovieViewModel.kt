@@ -25,9 +25,10 @@ class DiscoveryMovieViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
         )
 
-    val discoveryMoviePagingSource = Pager(config = PagingConfig(pageSize = 1, initialLoadSize = 1)) {
-        movieRepository.getDiscoveryMoviePagingSource(0)
-    }.flow.cachedIn(viewModelScope)
+    val discoveryMoviePagingSource =
+        Pager(config = PagingConfig(pageSize = 1, initialLoadSize = 1)) {
+            movieRepository.getDiscoveryMoviePagingSource(0)
+        }.flow.cachedIn(viewModelScope)
 
     val discoveryTvPagingSource = Pager(config = PagingConfig(pageSize = 1, initialLoadSize = 1)) {
         movieRepository.getDiscoveryMoviePagingSource(1)

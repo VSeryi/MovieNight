@@ -51,7 +51,10 @@ data class PeopleCredits(
         }
         sortedDateCasts.forEach { casts ->
             casts.forEach { c ->
-                Log.w("sqsong", "sortedDateCasts date: ${c.getCastDate()}, name: ${c.getCastName()}, back: ${c.backdropPath}")
+                Log.w(
+                    "sqsong",
+                    "sortedDateCasts date: ${c.getCastDate()}, name: ${c.getCastName()}, back: ${c.backdropPath}"
+                )
             }
         }
 

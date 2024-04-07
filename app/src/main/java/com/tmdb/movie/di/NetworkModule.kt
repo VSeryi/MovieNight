@@ -32,7 +32,10 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkhttpClient(@ApplicationContext context: Context, cookieJar: ClearableCookieJar): OkHttpClient {
+    fun provideOkhttpClient(
+        @ApplicationContext context: Context,
+        cookieJar: ClearableCookieJar
+    ): OkHttpClient {
         val logInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }

@@ -115,9 +115,10 @@ fun SeasonDetailHeader(
 ) {
     var imageHeight by remember { mutableIntStateOf(0) }
     val context = LocalContext.current
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
 
     Box(
         modifier = modifier.fillMaxWidth()
@@ -169,7 +170,8 @@ fun SeasonDetailHeader(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, top = 16.dp), verticalAlignment = Alignment.CenterVertically
+                    .padding(start = 16.dp, top = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 if (!season.airDate.isNullOrEmpty()) {
                     Icon(
@@ -221,7 +223,12 @@ fun SeasonDetailHeader(
             }
 
             Text(
-                text = String.format(LocalContext.current.getString(R.string.key_season_desc), season.name, tvName, season.niceAirDate()),
+                text = String.format(
+                    LocalContext.current.getString(R.string.key_season_desc),
+                    season.name,
+                    tvName,
+                    season.niceAirDate()
+                ),
                 modifier = Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp),
                 style = MaterialTheme.typography.bodyMedium.copy(
                     fontWeight = FontWeight.Normal,

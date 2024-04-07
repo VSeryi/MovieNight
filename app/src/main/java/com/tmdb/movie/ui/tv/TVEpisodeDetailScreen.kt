@@ -26,7 +26,6 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -85,7 +84,10 @@ fun TVEpisodeDetailScreen(
     val stickHeader by remember(scrollState.value) {
         derivedStateOf { scrollState.value >= headerHeight - topBarHeight }
     }
-    val tabItems = listOf(stringResource(R.string.key_guest_stars), stringResource(R.string.key_episode_images))
+    val tabItems = listOf(
+        stringResource(R.string.key_guest_stars),
+        stringResource(R.string.key_episode_images)
+    )
     val pagerNestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
@@ -179,7 +181,14 @@ fun TVEpisodeDetailScreen(
 fun TVEpisodeDetailScreenPreview() {
     val guestStars = mutableListOf<Cast>()
     repeat(30) {
-        guestStars.add(Cast(id = 1, name = "Jeremy Crawford", profilePath = "", character = "Yarpen Zigrin"))
+        guestStars.add(
+            Cast(
+                id = 1,
+                name = "Jeremy Crawford",
+                profilePath = "",
+                character = "Yarpen Zigrin"
+            )
+        )
     }
     TMDBMovieTheme {
         TVEpisodeDetailScreen(

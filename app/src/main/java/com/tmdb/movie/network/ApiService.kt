@@ -50,22 +50,40 @@ interface ApiService {
     suspend fun getPopularPeople(@Query("language") language: String = getLanguage()): BaseListData<People>
 
     @GET("movie/now_playing")
-    suspend fun getMoviesNowPlaying(@Query("page") page: Int = 1, @Query("language") language: String = getLanguage()): BaseListData<MediaItem>
+    suspend fun getMoviesNowPlaying(
+        @Query("page") page: Int = 1,
+        @Query("language") language: String = getLanguage()
+    ): BaseListData<MediaItem>
 
     @GET("tv/airing_today")
-    suspend fun getTVAiringToday(@Query("page") page: Int = 1, @Query("language") language: String = getLanguage()): BaseListData<MediaItem>
+    suspend fun getTVAiringToday(
+        @Query("page") page: Int = 1,
+        @Query("language") language: String = getLanguage()
+    ): BaseListData<MediaItem>
 
     @GET("movie/popular")
-    suspend fun getMoviesPopular(@Query("page") page: Int = 1, @Query("language") language: String = getLanguage()): BaseListData<MediaItem>
+    suspend fun getMoviesPopular(
+        @Query("page") page: Int = 1,
+        @Query("language") language: String = getLanguage()
+    ): BaseListData<MediaItem>
 
     @GET("tv/popular")
-    suspend fun getTVPopular(@Query("page") page: Int = 1, @Query("language") language: String = getLanguage()): BaseListData<MediaItem>
+    suspend fun getTVPopular(
+        @Query("page") page: Int = 1,
+        @Query("language") language: String = getLanguage()
+    ): BaseListData<MediaItem>
 
     @GET("discover/movie")
-    suspend fun getDiscoveryMovies(@Query("page") page: Int = 1, @Query("language") language: String = getLanguage()): BaseListData<MediaItem>
+    suspend fun getDiscoveryMovies(
+        @Query("page") page: Int = 1,
+        @Query("language") language: String = getLanguage()
+    ): BaseListData<MediaItem>
 
     @GET("discover/tv")
-    suspend fun getDiscoveryTV(@Query("page") page: Int = 1, @Query("language") language: String = getLanguage()): BaseListData<MediaItem>
+    suspend fun getDiscoveryTV(
+        @Query("page") page: Int = 1,
+        @Query("language") language: String = getLanguage()
+    ): BaseListData<MediaItem>
 
     @GET("movie/{id}")
     suspend fun getMovieDetails(
@@ -138,28 +156,50 @@ interface ApiService {
     suspend fun deleteSession(@Body session: Session): ResponseResult
 
     @GET("movie/{movie_id}/account_states")
-    suspend fun getMovieAccountState(@Path("movie_id") movieId: Int, @Query("session_id") sessionId: String): AccountState
+    suspend fun getMovieAccountState(
+        @Path("movie_id") movieId: Int,
+        @Query("session_id") sessionId: String
+    ): AccountState
 
     @GET("tv/{tv_id}/account_states")
-    suspend fun getTVAccountState(@Path("tv_id") tvId: Int, @Query("session_id") sessionId: String): AccountState
+    suspend fun getTVAccountState(
+        @Path("tv_id") tvId: Int,
+        @Query("session_id") sessionId: String
+    ): AccountState
 
     @POST("account/{account_id}/favorite")
-    suspend fun addToFavorite(@Path("account_id") accountId: Int, @Body body: FavoriteRequest): ResponseResult
+    suspend fun addToFavorite(
+        @Path("account_id") accountId: Int,
+        @Body body: FavoriteRequest
+    ): ResponseResult
 
     @POST("account/{account_id}/watchlist")
-    suspend fun addToWatchlist(@Path("account_id") accountId: Int, @Body body: WatchlistRequest): ResponseResult
+    suspend fun addToWatchlist(
+        @Path("account_id") accountId: Int,
+        @Body body: WatchlistRequest
+    ): ResponseResult
 
     @GET("account/{account_id}/lists")
     suspend fun getAccountMediaLists(@Path("account_id") accountId: Int): BaseListData<MediaList>
 
     @POST("list/{list_id}/add_item")
-    suspend fun addMediaToList(@Path("list_id") listId: Int, @Query("session_id") sessionId: String, @Body body: MediaIdRequest): ResponseResult
+    suspend fun addMediaToList(
+        @Path("list_id") listId: Int,
+        @Query("session_id") sessionId: String,
+        @Body body: MediaIdRequest
+    ): ResponseResult
 
     @POST("list")
-    suspend fun createList(@Query("session_id") sessionId: String, @Body body: CreateListParam): ResponseResult
+    suspend fun createList(
+        @Query("session_id") sessionId: String,
+        @Body body: CreateListParam
+    ): ResponseResult
 
     @GET("list/{list_id}")
-    suspend fun getListsDetail(@Path("list_id") listId: Int, @Query("language") language: String = getLanguage()): ListsDetail
+    suspend fun getListsDetail(
+        @Path("list_id") listId: Int,
+        @Query("language") language: String = getLanguage()
+    ): ListsDetail
 
     @GET("account/{account_id}/favorite/movies")
     suspend fun getFavoriteMovies(
@@ -176,16 +216,28 @@ interface ApiService {
     ): BaseListData<MediaItem>
 
     @GET("account/{account_id}/watchlist/movies")
-    suspend fun getWatchlistMovies(@Path("account_id") accountId: Int, @Query("page") page: Int): BaseListData<MediaItem>
+    suspend fun getWatchlistMovies(
+        @Path("account_id") accountId: Int,
+        @Query("page") page: Int
+    ): BaseListData<MediaItem>
 
     @GET("account/{account_id}/watchlist/tv")
-    suspend fun getWatchlistTV(@Path("account_id") accountId: Int, @Query("page") page: Int): BaseListData<MediaItem>
+    suspend fun getWatchlistTV(
+        @Path("account_id") accountId: Int,
+        @Query("page") page: Int
+    ): BaseListData<MediaItem>
 
     @GET("account/{account_id}/rated/movies")
-    suspend fun getRatedMovies(@Path("account_id") accountId: Int, @Query("page") page: Int): BaseListData<MediaItem>
+    suspend fun getRatedMovies(
+        @Path("account_id") accountId: Int,
+        @Query("page") page: Int
+    ): BaseListData<MediaItem>
 
     @GET("account/{account_id}/rated/tv")
-    suspend fun getRatedTV(@Path("account_id") accountId: Int, @Query("page") page: Int): BaseListData<MediaItem>
+    suspend fun getRatedTV(
+        @Path("account_id") accountId: Int,
+        @Query("page") page: Int
+    ): BaseListData<MediaItem>
 
     @GET("tv/{serial_id}/season/{season_number}")
     suspend fun getSeasonDetails(

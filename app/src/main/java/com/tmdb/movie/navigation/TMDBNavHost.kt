@@ -59,9 +59,17 @@ fun TMDBNavHost(
     LaunchedEffect(authorizeState) {
         if (authorizeState.isNotEmpty()) {
             if (authorizeState.startsWith("success")) {
-                Toast.makeText(context, context.getString(R.string.key_auth_success), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.key_auth_success),
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
-                Toast.makeText(context, context.getString(R.string.key_auth_error), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.key_auth_error),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             viewModel.updateRequestToken("")
         }

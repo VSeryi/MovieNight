@@ -99,7 +99,13 @@ fun AccountListsScreen(
 
                 LoadState.Loading -> {
                     items(5) {
-                        AccountListsItemPlaceholder(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp))
+                        AccountListsItemPlaceholder(
+                            modifier = Modifier.padding(
+                                start = 16.dp,
+                                end = 16.dp,
+                                top = 16.dp
+                            )
+                        )
                     }
                 }
 

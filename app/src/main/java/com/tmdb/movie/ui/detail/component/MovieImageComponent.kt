@@ -71,7 +71,15 @@ fun MovieDetailImageComponent(
                             end = if (index == backdropSize - 1) 16.dp else 8.dp
                         )
                         .clip(MaterialTheme.shapes.medium)
-                        .clickable { onPreviewImage(onBuildImage(imageList[index].filePath, imageType, ImageSize.LARGE)) },
+                        .clickable {
+                            onPreviewImage(
+                                onBuildImage(
+                                    imageList[index].filePath,
+                                    imageType,
+                                    ImageSize.LARGE
+                                )
+                            )
+                        },
                     model = ImageRequest.Builder(LocalContext.current)
                         .placeholder(BitmapDrawable(context.resources, placeholderBitmap))
                         .error(BitmapDrawable(context.resources, placeholderBitmap))

@@ -112,7 +112,8 @@ fun SeasonListTopBar(
                 onBackClick(false)
             }) {
                 Icon(
-                    painter = painterResource(id = R.drawable.baseline_arrow_back_24), contentDescription = ""
+                    painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                    contentDescription = ""
                 )
             }
         },
@@ -140,9 +141,10 @@ fun SeasonListItem(
 ) {
     val context = LocalContext.current
     var isImageError by rememberSaveable { mutableStateOf(false) }
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -161,9 +163,11 @@ fun SeasonListItem(
             ) {
                 AsyncImage(
                     modifier = Modifier.fillMaxHeight(),
-                    model = ImageRequest.Builder(LocalContext.current).placeholder(BitmapDrawable(context.resources, placeholderBitmap))
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .placeholder(BitmapDrawable(context.resources, placeholderBitmap))
                         .error(BitmapDrawable(context.resources, placeholderBitmap))
-                        .data(onBuildImage(season.posterPath, ImageType.POSTER, ImageSize.MEDIUM)).crossfade(true).listener(onError = { _, _ ->
+                        .data(onBuildImage(season.posterPath, ImageType.POSTER, ImageSize.MEDIUM))
+                        .crossfade(true).listener(onError = { _, _ ->
                             isImageError = true
                         }).build(),
                     contentScale = ContentScale.FillHeight,
@@ -188,7 +192,8 @@ fun SeasonListItem(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 8.dp, start = 16.dp), verticalAlignment = Alignment.CenterVertically
+                        .padding(top = 8.dp, start = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         modifier = Modifier.weight(1f),
@@ -204,7 +209,8 @@ fun SeasonListItem(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 6.dp, start = 16.dp), verticalAlignment = Alignment.CenterVertically
+                        .padding(top = 6.dp, start = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (season.voteAverage != 0f) {
                         RatingBar(
@@ -243,9 +249,12 @@ fun SeasonListItem(
                         modifier = Modifier
                             .weight(1f)
                             .padding(end = 16.dp), text = String.format(
-                            stringResource(R.string.key_year_episodes), season.getTVAirYear(), season.episodeCount
+                            stringResource(R.string.key_year_episodes),
+                            season.getTVAirYear(),
+                            season.episodeCount
                         ), style = MaterialTheme.typography.labelMedium.copy(
-                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f), fontWeight = FontWeight.Bold
+                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),
+                            fontWeight = FontWeight.Bold
                         ), textAlign = TextAlign.Start
                     )
                 }
@@ -254,7 +263,12 @@ fun SeasonListItem(
                     text = if (!season.overview.isNullOrEmpty()) {
                         season.getSeasonOverview(context = LocalContext.current)
                     } else {
-                        String.format(context.getString(R.string.key_season_desc), season.name, tvName, season.niceAirDate())
+                        String.format(
+                            context.getString(R.string.key_season_desc),
+                            season.name,
+                            tvName,
+                            season.niceAirDate()
+                        )
                     },
                     modifier = Modifier
                         .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
@@ -311,7 +325,12 @@ fun SeasonListHeader(
         if (!imagePath.isNullOrEmpty()) {
             val bitmap = withContext(Dispatchers.IO) {
                 val b = Glide.with(context).asBitmap().load(imagePath).submit().get()
-                val destBitmap = Bitmap.createScaledBitmap(b, b.width / scaleFactor, b.height / scaleFactor, true)
+                val destBitmap = Bitmap.createScaledBitmap(
+                    b,
+                    b.width / scaleFactor,
+                    b.height / scaleFactor,
+                    true
+                )
                 Log.w(
                     "sqsong",
                     "image path : $imagePath, bitmap size: ${b.width} * ${b.height}, dest bitmap size: ${destBitmap.width} * ${destBitmap.height}"
@@ -332,7 +351,10 @@ fun SeasonListHeader(
                     .graphicsLayer {
                         translationY = -scrollValue.toFloat() / 2
                         alpha = (-1f / headerHeight) * scrollValue + 1
-                    }, bitmap = bitmap.asImageBitmap(), contentDescription = null, contentScale = ContentScale.Crop
+                    },
+                bitmap = bitmap.asImageBitmap(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
             )
         } ?: Spacer(
             modifier = modifier
@@ -472,10 +494,11 @@ fun SeasonCollapsingHeader(
     }
 
     val context = LocalContext.current
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()
-        ?.apply {
-            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-        }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()
+            ?.apply {
+                eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+            }
 
     Box(
         modifier = Modifier

@@ -36,17 +36,16 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.google.accompanist.placeholder.PlaceholderDefaults
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.shimmerHighlightColor
-import com.google.accompanist.placeholder.placeholder
-import com.google.accompanist.placeholder.shimmer
 import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarStyle
 import com.tmdb.movie.R
 import com.tmdb.movie.component.ErrorPage
 import com.tmdb.movie.component.LoadingError
 import com.tmdb.movie.component.LoadingFooter
+import com.tmdb.movie.component.PlaceholderDefaults
+import com.tmdb.movie.component.PlaceholderHighlight
+import com.tmdb.movie.component.placeholder
+import com.tmdb.movie.component.shimmer
 import com.tmdb.movie.data.ImageType
 import com.tmdb.movie.data.MediaItem
 import com.tmdb.movie.data.MediaType
@@ -96,7 +95,12 @@ fun DiscoveryTVListComponent(
 
             LoadState.Loading -> {
                 items(20) {
-                    DiscoveryTVComponentPlaceholder(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+                    DiscoveryTVComponentPlaceholder(
+                        modifier = Modifier.padding(
+                            horizontal = 16.dp,
+                            vertical = 8.dp
+                        )
+                    )
                 }
             }
 
@@ -160,7 +164,7 @@ fun DiscoveryTVComponent(
         )
         BasicText(
             modifier = Modifier.padding(top = 8.dp),
-            text = movieItem.getMovieName(MediaType.TV) ?: "",
+            text = movieItem.getMovieName(MediaType.TV),
             style = MaterialTheme.typography.titleMedium.copy(
                 color = MaterialTheme.colorScheme.onBackground,
             ),
@@ -202,7 +206,8 @@ fun DiscoveryTVComponent(
                 onRatingChanged = {})
             BasicText(
                 modifier = Modifier,
-                text = movieItem.getNiceDate(mediaType = MediaType.TV, isFormatShort = false) ?: stringResource(id = R.string.key_unknown),
+                text = movieItem.getNiceDate(mediaType = MediaType.TV, isFormatShort = false)
+                    ?: stringResource(id = R.string.key_unknown),
                 style = MaterialTheme.typography.bodySmall.copy(
                     color = MaterialTheme.colorScheme.onBackground,
                 ),

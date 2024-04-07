@@ -40,7 +40,8 @@ fun launchUrl(context: Context, url: String?) {
 
 fun copyTextToClipboard(context: Context, text: String?) {
     if (text.isNullOrEmpty()) return
-    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+    val clipboard =
+        context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
     val clip = android.content.ClipData.newPlainText("TMDB", text)
     clipboard.setPrimaryClip(clip)
 }

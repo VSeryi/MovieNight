@@ -1,10 +1,8 @@
 import java.util.Properties
 
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-    // alias(libs.plugins.kotlinKapt)
     alias(libs.plugins.kotlinParcelize)
     alias(libs.plugins.daggerHilt)
     alias(libs.plugins.ksp)
@@ -28,6 +26,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
 
         resValue("string", "tmdb_access_token", properties.getProperty("TMDB_ACCESS_TOKEN"))
@@ -57,17 +59,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "18"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
     packaging {
         resources {
@@ -76,17 +78,8 @@ android {
     }
 }
 
-
-configurations.all {
-    resolutionStrategy {
-         force("androidx.compose.material:material:1.6.0-alpha08")
-//         force("androidx.compose.foundation:foundation:1.6.0-alpha07")
-//         force("androidx.compose.foundation:foundation-layout:1.6.0-alpha07")
-    }
-}
-
 dependencies {
-    implementation(project(":lib-renderscript"))
+    implementation(libs.renderscript.intrinsics.replacement)
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
@@ -95,7 +88,6 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
-    implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.navigation.compose)
     // Hilt
     implementation(libs.dagger.hilt)
@@ -107,19 +99,12 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.loggin.interceptor)
     // Paging
-    implementation(libs.paging.runtime)
     implementation(libs.paging.compose)
     // Coil
     implementation(libs.coil.compose)
     implementation(libs.coil.svg)
-    // Custom Tab Browser
-    implementation(libs.custom.tab.browser)
-    // DataStore
-    implementation(libs.datastore.preferences)
     // Persistent CookieJar
     implementation(libs.persistent.cookieJar)
-    // Accompanist Placeholder Material
-    implementation(libs.accompanist.placeholder)
     // Compose Material
     implementation(libs.compose.material)
     // Lifecycle Runtime Compose
@@ -135,24 +120,16 @@ dependencies {
     implementation(libs.splash.screen)
     // Appcompat
     implementation(libs.appcompat)
-    // Accompanist Systemuicontroller
-    implementation(libs.accompanist.systemuicontroller)
     // Rating Bar
     implementation(libs.compose.ratingbar)
     // Runtime Tracing
-    implementation(libs.runtime.tracing)
+    runtimeOnly(libs.runtime.tracing)
     // Text Flow
     implementation(libs.text.flow)
     // Read More Text
     implementation(libs.readmore.text)
     // Compose ui-util
     implementation(libs.ui.util)
-    // Cloudy
-    // implementation(libs.cloudy)
-    // Landscapist Coil
-    implementation(libs.landscapist.coil)
-    // Landscapist Transformation
-    // implementation(libs.landscapist.transformation)
     // Room Database
     implementation(libs.room)
     implementation(libs.room.ktx)
@@ -163,8 +140,5 @@ dependencies {
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
-    debugImplementation(libs.ui.test.manifest)
 }

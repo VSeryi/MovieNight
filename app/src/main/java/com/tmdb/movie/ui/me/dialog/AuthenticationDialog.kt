@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -55,7 +55,11 @@ fun AuthenticationDialog(
     LaunchedEffect(uiState) {
         Log.w("sqsong", "LaunchedEffect uiState: $uiState")
         if (uiState is AuthenticationUiState.Error) {
-            Toast.makeText(context, context.getString(R.string.key_authorize_error), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                context.getString(R.string.key_authorize_error),
+                Toast.LENGTH_SHORT
+            ).show()
             onDismiss()
         }
     }
@@ -76,7 +80,11 @@ fun AuthenticationDialog(
         onCopyAuthUrl = {
             val link = String.format(context.getString(R.string.key_authentication_url), it)
             copyTextToClipboard(context, link)
-            Toast.makeText(context, context.getString(R.string.key_copy_success), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                context.getString(R.string.key_copy_success),
+                Toast.LENGTH_SHORT
+            ).show()
             viewModel.updateOnAuthorize()
         }
     )
@@ -93,14 +101,14 @@ fun AuthenticationDialog(
 ) {
     val configuration = LocalConfiguration.current
 
-    AlertDialog(
+    BasicAlertDialog(
+        onDismissRequest = { },
+        modifier = Modifier
+            .widthIn(max = configuration.screenWidthDp.dp - 80.dp),
         properties = DialogProperties(
             usePlatformDefaultWidth = false,
             dismissOnClickOutside = false
-        ),
-        modifier = Modifier
-            .widthIn(max = configuration.screenWidthDp.dp - 80.dp),
-        onDismissRequest = { },
+        )
     ) {
 
         Card(shape = MaterialTheme.shapes.extraLarge) {

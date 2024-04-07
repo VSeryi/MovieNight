@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -52,11 +52,18 @@ fun WrapIndicatorTabRow() {
         containerColor = Color.Transparent,
         indicator = { tabPositions ->
             if (tabIndex < tabPositions.size) {
-                TabRowDefaults.Indicator(
+                SecondaryIndicator(
                     modifier = Modifier
                         .customTabIndicatorOffset(tabPositions[tabIndex], tabsWidth[tabIndex])
-                        .clip(RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp, bottomStart = 4.dp, bottomEnd = 4.dp)),
-                    height = 4.dp
+                        .clip(
+                            RoundedCornerShape(
+                                topStart = 4.dp,
+                                topEnd = 4.dp,
+                                bottomStart = 4.dp,
+                                bottomEnd = 4.dp
+                            )
+                        ),
+                    height = 4.dp,
                 )
             }
         },
@@ -72,7 +79,9 @@ fun WrapIndicatorTabRow() {
                         .padding(vertical = 16.dp),
                     text = title,
                     style = MaterialTheme.typography.titleMedium.copy(
-                        color = if (index == tabIndex) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                        color = if (index == tabIndex) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(
+                            alpha = 0.6f
+                        ),
                         fontWeight = if (index == tabIndex) FontWeight.Bold else FontWeight.Medium,
                         fontSize = if (index == tabIndex) 32.sp else 24.sp
                     ),
@@ -102,11 +111,16 @@ fun DiscoveryTabRow(
         containerColor = Color.Transparent,
         indicator = { tabPositions ->
             if (selectedTabIndex < tabPositions.size) {
-                TabRowDefaults.Indicator(
+                SecondaryIndicator(
                     modifier = Modifier
                         .customTabIndicatorOffset(tabPositions[selectedTabIndex], 50.dp)
-                        .clip(RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp/*, bottomStart = 4.dp, bottomEnd = 4.dp*/)),
-                    height = 4.dp
+                        .clip(
+                            RoundedCornerShape(
+                                topStart = 4.dp,
+                                topEnd = 4.dp/*, bottomStart = 4.dp, bottomEnd = 4.dp*/
+                            )
+                        ),
+                    height = 4.dp,
                 )
             }
         },

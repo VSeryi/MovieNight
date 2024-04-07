@@ -19,7 +19,10 @@ internal class AccountMediaListArgs(val accountId: Int, val accountMediaType: In
     )
 }
 
-fun NavController.navigateToAccountMediaList(accountId: Int, @AccountMediaType accountMediaType: Int) {
+fun NavController.navigateToAccountMediaList(
+    accountId: Int,
+    @AccountMediaType accountMediaType: Int
+) {
     this.navigate("$accountMediaListNavigationRoute/$accountId/$accountMediaType")
 }
 

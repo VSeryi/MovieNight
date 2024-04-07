@@ -16,11 +16,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.tmdb.movie.data.DarkThemeType
+import com.tmdb.movie.ui.app.TMDBApp
 import com.tmdb.movie.ui.main.vm.MainActivityUiState
 import com.tmdb.movie.ui.main.vm.MainActivityUiState.Loading
 import com.tmdb.movie.ui.main.vm.MainActivityUiState.Success
 import com.tmdb.movie.ui.main.vm.MainViewModel
-import com.tmdb.movie.ui.app.TMDBApp
 import com.tmdb.movie.ui.theme.TMDBMovieTheme
 import com.tmdb.movie.utils.monitor.NetworkMonitor
 import dagger.hilt.android.AndroidEntryPoint

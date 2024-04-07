@@ -8,7 +8,12 @@ import kotlinx.serialization.Serializable
 
 @IntDef(DarkThemeType.FOLLOW_SYSTEM, DarkThemeType.DARK, DarkThemeType.LIGHT)
 @Retention(AnnotationRetention.SOURCE)
-@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY, AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.FUNCTION)
+@Target(
+    AnnotationTarget.FIELD,
+    AnnotationTarget.PROPERTY,
+    AnnotationTarget.VALUE_PARAMETER,
+    AnnotationTarget.FUNCTION
+)
 annotation class DarkThemeType {
     companion object {
         const val FOLLOW_SYSTEM = 0
@@ -19,7 +24,13 @@ annotation class DarkThemeType {
 
 @IntDef(ImageType.BACKDROP, ImageType.LOGO, ImageType.POSTER, ImageType.PROFILE, ImageType.STILL)
 @Retention(AnnotationRetention.SOURCE)
-@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY, AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.FUNCTION, AnnotationTarget.TYPE)
+@Target(
+    AnnotationTarget.FIELD,
+    AnnotationTarget.PROPERTY,
+    AnnotationTarget.VALUE_PARAMETER,
+    AnnotationTarget.FUNCTION,
+    AnnotationTarget.TYPE
+)
 annotation class ImageType {
     companion object {
         const val BACKDROP = 0
@@ -32,7 +43,13 @@ annotation class ImageType {
 
 @IntDef(ImageSize.SMALL, ImageSize.MEDIUM, ImageSize.LARGE)
 @Retention(AnnotationRetention.SOURCE)
-@Target(AnnotationTarget.FIELD, AnnotationTarget.PROPERTY, AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.FUNCTION, AnnotationTarget.TYPE)
+@Target(
+    AnnotationTarget.FIELD,
+    AnnotationTarget.PROPERTY,
+    AnnotationTarget.VALUE_PARAMETER,
+    AnnotationTarget.FUNCTION,
+    AnnotationTarget.TYPE
+)
 annotation class ImageSize {
     companion object {
         const val SMALL = 0
@@ -56,7 +73,11 @@ data class TMDBConfig(
     val userData: UserData? = null,
 ) {
 
-    fun buildImageUrl(imagePath: String?, @ImageType imageType: Int, @ImageSize imageSize: Int = ImageSize.MEDIUM): String {
+    fun buildImageUrl(
+        imagePath: String?,
+        @ImageType imageType: Int,
+        @ImageSize imageSize: Int = ImageSize.MEDIUM
+    ): String {
         return if (imagePath.isNullOrEmpty()) {
             ""
         } else {
@@ -69,7 +90,8 @@ data class TMDBConfig(
                         }
 
                         ImageSize.MEDIUM -> {
-                            backdropSizeList?.getOrNull(backdropSizeList.size - 2) ?: DEFAULT_IMAGE_SIZE
+                            backdropSizeList?.getOrNull(backdropSizeList.size - 2)
+                                ?: DEFAULT_IMAGE_SIZE
                         }
 
                         else -> {
@@ -117,7 +139,8 @@ data class TMDBConfig(
                         }
 
                         ImageSize.MEDIUM -> {
-                            profileSizeList?.getOrNull(profileSizeList.size - 2) ?: DEFAULT_IMAGE_SIZE
+                            profileSizeList?.getOrNull(profileSizeList.size - 2)
+                                ?: DEFAULT_IMAGE_SIZE
                         }
 
                         else -> {
@@ -161,7 +184,10 @@ data class TMDBConfig(
                 }
             } else {
                 val gravatarHash = it.avatar?.gravatar?.hash
-                String.format(context.getString(if (isSmall) R.string.key_gravatar_url_small else R.string.key_gravatar_url), gravatarHash)
+                String.format(
+                    context.getString(if (isSmall) R.string.key_gravatar_url_small else R.string.key_gravatar_url),
+                    gravatarHash
+                )
             }
         } ?: ""
     }

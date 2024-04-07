@@ -1,7 +1,6 @@
 package com.tmdb.movie.ui.media
 
 import android.content.res.Configuration
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -53,12 +52,20 @@ fun CreateListRoute(
     LaunchedEffect(createListUiState) {
         when (createListUiState) {
             is CreateListUiState.Success -> {
-                Toast.makeText(context, context.getString(R.string.key_create_list_success), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.key_create_list_success),
+                    Toast.LENGTH_SHORT
+                ).show()
                 onBackClick(false)
             }
 
             is CreateListUiState.Error -> {
-                Toast.makeText(context, context.getString(R.string.key_create_list_failed), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.key_create_list_failed),
+                    Toast.LENGTH_SHORT
+                ).show()
                 viewModel.resetUiState()
             }
 
@@ -72,11 +79,19 @@ fun CreateListRoute(
         onBackClick = onBackClick,
         onCreate = { listName, listDescription ->
             if (listName.length > 20) {
-                Toast.makeText(context, context.getString(R.string.key_list_name_exceeds_maximum), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.key_list_name_exceeds_maximum),
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@CreateListPage
             }
             if (listDescription.length > 300) {
-                Toast.makeText(context, context.getString(R.string.key_list_description_exceeds_maximum), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.key_list_description_exceeds_maximum),
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@CreateListPage
             }
             viewModel.createList(CreateListParam(listName, listDescription))

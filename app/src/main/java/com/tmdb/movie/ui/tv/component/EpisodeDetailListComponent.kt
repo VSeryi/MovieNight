@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
@@ -49,6 +50,7 @@ import com.tmdb.movie.data.ImageType
 import com.tmdb.movie.data.MovieImage
 import com.tmdb.movie.ui.theme.TMDBMovieTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EpisodeTabRow(
     modifier: Modifier = Modifier,
@@ -125,7 +127,8 @@ fun EpisodeGuestItem(
     onBuildImage: (String?, @ImageType Int, @ImageSize Int) -> String
 ) {
     val placeholder = BitmapDrawable(LocalContext.current.resources,
-        AppCompatResources.getDrawable(LocalContext.current, R.drawable.image_placeholder)?.toBitmap()?.apply {
+        AppCompatResources.getDrawable(LocalContext.current, R.drawable.image_placeholder)
+            ?.toBitmap()?.apply {
             eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
         }
     )
@@ -194,7 +197,14 @@ fun EpisodeGuestItem(
 fun PreviewEpisodeGuestStarList() {
     val guestStars = mutableListOf<Cast>()
     repeat(30) {
-        guestStars.add(Cast(id = 1, name = "Jeremy Crawford", profilePath = "", character = "Yarpen Zigrin"))
+        guestStars.add(
+            Cast(
+                id = 1,
+                name = "Jeremy Crawford",
+                profilePath = "",
+                character = "Yarpen Zigrin"
+            )
+        )
     }
     TMDBMovieTheme {
         EpisodeGuestStarList(
@@ -212,7 +222,10 @@ fun EpisodeImageLists(
 ) {
 
     val placeholder = BitmapDrawable(LocalContext.current.resources,
-        AppCompatResources.getDrawable(LocalContext.current, R.drawable.image_placeholder_horizontal)?.toBitmap()?.apply {
+        AppCompatResources.getDrawable(
+            LocalContext.current,
+            R.drawable.image_placeholder_horizontal
+        )?.toBitmap()?.apply {
             eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
         }
     )

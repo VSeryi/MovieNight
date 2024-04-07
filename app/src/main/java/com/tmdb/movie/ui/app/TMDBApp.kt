@@ -51,7 +51,6 @@ fun TMDBApp(
         color = MaterialTheme.colorScheme.background,
     ) {
         val snackbarHostState = remember { SnackbarHostState() }
-        var bottomBarHeight = remember { mutableIntStateOf(0) }
         val isOffline by appState.isOffline.collectAsStateWithLifecycle()
         var showBottomBar by rememberSaveable { mutableStateOf(true) }
         var isDelayShowBottomBar by rememberSaveable { mutableStateOf(false) }
@@ -115,51 +114,6 @@ fun TMDBApp(
                 )
             }
         }
-
-        /*Scaffold(
-            modifier = Modifier.semantics {
-                testTagsAsResourceId = true
-            },
-            contentWindowInsets = WindowInsets(0, 0, 0, 0),
-            snackbarHost = {
-                SnackbarHost(snackbarHostState) {
-                    Snackbar(
-                        it, containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary,
-                    )
-                }
-            },
-            bottomBar = {
-                if (showBottomBar) {
-                    TMDBBottomBar(
-                        destinations = appState.materialDestinations,
-                        onNavigateTo = appState::navigateToDestination,
-                        currentDestination = appState.currentDestination,
-                    )
-                }
-            },
-        ) { paddingValues ->
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .consumeWindowInsets(paddingValues)
-            ) {
-                TMDBNavHost(
-                    appState = appState,
-                    onShowBottomBar = {
-                        showBottomBar = it
-                    },
-                    onBackClick = {
-                        if (it) {
-                            isDelayShowBottomBar = true
-                        } else {
-                            appState.popBackStack()
-                        }
-                    },
-                )
-            }
-        }*/
     }
 }
 
@@ -202,6 +156,7 @@ fun TMDBBottomBar(
     }
 }
 
-private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TMDBDestination) = this?.hierarchy?.any {
-    it.route == destination.route
-} ?: false
+private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TMDBDestination) =
+    this?.hierarchy?.any {
+        it.route == destination.route
+    } ?: false

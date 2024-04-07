@@ -2,6 +2,7 @@ package com.tmdb.movie.ui.tv
 
 import android.net.Uri
 import android.os.Bundle
+import androidx.core.os.BundleCompat
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -35,7 +36,7 @@ internal class SeasonInfoArgs(val seasonInfo: SeasonInfo?) {
 
 internal class SeasonInfoNavType : NavType<SeasonInfo>(isNullableAllowed = false) {
     override fun get(bundle: Bundle, key: String): SeasonInfo? {
-        return bundle.getParcelable(key)
+        return BundleCompat.getParcelable(bundle, key, SeasonInfo::class.java)
     }
 
     override fun parseValue(value: String): SeasonInfo {
@@ -49,7 +50,7 @@ internal class SeasonInfoNavType : NavType<SeasonInfo>(isNullableAllowed = false
 
 internal class SeasonDetailNavType : NavType<SeasonDetailParam>(isNullableAllowed = false) {
     override fun get(bundle: Bundle, key: String): SeasonDetailParam? {
-        return bundle.getParcelable(key)
+        return BundleCompat.getParcelable(bundle, key, SeasonDetailParam::class.java)
     }
 
     override fun parseValue(value: String): SeasonDetailParam {
@@ -105,18 +106,19 @@ fun NavGraphBuilder.tvSeasonDetailScreen(
             },
         )
     ) {
-        val seasonParam = it.arguments?.getParcelable<SeasonDetailParam>(seasonDetailArg)
-
+        val seasonParam = it.arguments?.let { it1 -> BundleCompat.getParcelable(it1, seasonDetailArg, SeasonDetailParam::class.java) }
         TVSeasonDetailRoute(
             tvName = seasonParam?.tvName ?: "",
             onBackClick = onBackClick,
             toEpisodeDetail = { seasonNumber, episodeNumber ->
-                toEpisodeDetail(SeasonDetailParam(
-                    tvId = seasonParam?.tvId ?: 0,
-                    tvName = seasonParam?.tvName ?: "",
-                    seasonNumber = seasonNumber,
-                    episodeNumber = episodeNumber,
-                ))
+                toEpisodeDetail(
+                    SeasonDetailParam(
+                        tvId = seasonParam?.tvId ?: 0,
+                        tvName = seasonParam?.tvName ?: "",
+                        seasonNumber = seasonNumber,
+                        episodeNumber = episodeNumber,
+                    )
+                )
             }
         )
     }

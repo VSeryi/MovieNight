@@ -110,7 +110,8 @@ fun SearchResultComponent(
         ) {
             Icon(
                 modifier = Modifier.size(22.dp),
-                painter = painterResource(id = R.drawable.baseline_manage_search_24), contentDescription = ""
+                painter = painterResource(id = R.drawable.baseline_manage_search_24),
+                contentDescription = ""
             )
             BasicText(
                 modifier = Modifier.padding(start = 8.dp),
@@ -168,9 +169,10 @@ fun SearchMovieComponent(
     navigateToDetail: (Int, @MediaType Int) -> Unit = { _, _ -> },
 ) {
     val context = LocalContext.current
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
 
     Card(modifier = modifier.padding(),
         onClick = {
@@ -236,9 +238,10 @@ fun SearchPeopleComponent(
     navigateToDetail: (Int, @MediaType Int) -> Unit = { _, _ -> },
 ) {
     val context = LocalContext.current
-    val placeholderBitmap = AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
-        eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
-    }
+    val placeholderBitmap =
+        AppCompatResources.getDrawable(context, R.drawable.image_placeholder)?.toBitmap()?.apply {
+            eraseColor(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f).toArgb())
+        }
 
     Card(modifier = modifier.padding(),
         onClick = {

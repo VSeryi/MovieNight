@@ -14,7 +14,10 @@ private const val peopleDetailNavigationRoute = "people_detail_navigation_route"
 
 internal class PeopleArgs(val peopleId: Int, val type: Int) {
     constructor(savedStateHandle: SavedStateHandle) :
-            this(savedStateHandle.get<Int>(peopleIdArg) ?: 0, savedStateHandle.get<Int>(peopleTypeArg) ?: 0)
+            this(
+                savedStateHandle.get<Int>(peopleIdArg) ?: 0,
+                savedStateHandle.get<Int>(peopleTypeArg) ?: 0
+            )
 }
 
 fun NavController.navigateToPeopleDetail(peopleId: Int, detailType: Int = 0) {

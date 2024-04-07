@@ -149,7 +149,11 @@ fun MovieDetailRoute(
 
             AddListUiState.Idle -> {}
             AddListUiState.Success -> {
-                Toast.makeText(context, context.getString(R.string.key_add_list_success), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.key_add_list_success),
+                    Toast.LENGTH_SHORT
+                ).show()
                 showMediaListBottomSheet = false
                 viewModel.resetAddListState()
             }
@@ -321,7 +325,10 @@ fun MovieDetailScreen(
         ""
     }
 
-    val showState by produceState(key1 = movieDetailUiState, initialValue = MovieDetailShowState(isLoading = true)) {
+    val showState by produceState(
+        key1 = movieDetailUiState,
+        initialValue = MovieDetailShowState(isLoading = true)
+    ) {
         value = when (movieDetailUiState) {
             is MovieDetailUiState.Error -> MovieDetailShowState(throwError = true)
             MovieDetailUiState.Loading -> MovieDetailShowState(isLoading = true)
@@ -521,10 +528,23 @@ fun MovieDetailComponent(
                 episodeToAir = movieDetails.nextEpisodeToAir ?: movieDetails.lastEpisodeToAir,
                 onBuildImage = onBuildImage,
                 toSeasonDetail = { seasonNum ->
-                    toSeasonDetail(SeasonDetailParam(movieDetails.id, movieDetails.getMovieName(mediaType) ?: "", seasonNum))
+                    toSeasonDetail(
+                        SeasonDetailParam(
+                            movieDetails.id,
+                            movieDetails.getMovieName(mediaType) ?: "",
+                            seasonNum
+                        )
+                    )
                 },
                 toEpisodeDetail = { seasonNum, episodeNum ->
-                    toEpisodeDetail(SeasonDetailParam(movieDetails.id, movieDetails.getMovieName(mediaType) ?: "", seasonNum, episodeNum))
+                    toEpisodeDetail(
+                        SeasonDetailParam(
+                            movieDetails.id,
+                            movieDetails.getMovieName(mediaType) ?: "",
+                            seasonNum,
+                            episodeNum
+                        )
+                    )
                 },
                 toSeasonList = {
                     val seasonInfo = SeasonInfo(
@@ -579,15 +599,31 @@ fun MovieDetailScreenPreview() {
         title = "阿凡达：水之道",
         releaseDate = "2022-12-14",
         tagline = "传奇导演詹姆斯·卡梅隆全新巨作",
-        genres = listOf(Genre(id = 1, name = "动作"), Genre(id = 2, name = "冒险"), Genre(id = 3, name = "科幻")),
+        genres = listOf(
+            Genre(id = 1, name = "动作"),
+            Genre(id = 2, name = "冒险"),
+            Genre(id = 3, name = "科幻")
+        ),
         voteAverage = 7.655f,
         revenue = 232025.00,
         overview = "影片设定在《阿凡达》的剧情落幕十余年后，讲述了萨利一家（杰克、奈蒂莉和孩子们）的故事：危机未曾消散，一家人拼尽全力彼此守护、奋力求生，并历经艰险磨难。影片设定在《阿凡达》的剧情落幕十余年后，讲述了萨利一家（杰克、奈蒂莉和孩子们）的故事：危机未曾消散，一家人拼尽全力彼此守护、奋力求生，并历经艰险磨难。影片设定在《阿凡达》的剧情落幕十余年后，讲述了萨利一家（杰克、奈蒂莉和孩子们）的故事：危机未曾消散，一家人拼尽全力彼此守护、奋力求生，并历经艰险磨难。",
         credits = Credits(
             cast = listOf(
-                Cast(name = "Sam Worthington", character = "Jake Sully", profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"),
-                Cast(name = "Sam Worthington", character = "Jake Sully", profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"),
-                Cast(name = "Sam Worthington", character = "Jake Sully", profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"),
+                Cast(
+                    name = "Sam Worthington",
+                    character = "Jake Sully",
+                    profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"
+                ),
+                Cast(
+                    name = "Sam Worthington",
+                    character = "Jake Sully",
+                    profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"
+                ),
+                Cast(
+                    name = "Sam Worthington",
+                    character = "Jake Sully",
+                    profilePath = "/mflBcox36s9ZPbsZPVOuhf6axaJ.jpg"
+                ),
             ),
         ),
         videos = com.tmdb.movie.data.Videos(

@@ -311,7 +311,7 @@ data class Episode(
     @SerializedName("runtime")
     val runtime: Int = 0,
     @SerializedName("season_number")
-    val seasonNumber: Int= 0,
+    val seasonNumber: Int = 0,
     @SerializedName("show_id")
     val showId: Int = 0,
     @SerializedName("still_path")

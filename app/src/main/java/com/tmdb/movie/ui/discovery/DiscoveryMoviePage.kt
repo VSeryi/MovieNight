@@ -40,7 +40,6 @@ fun DiscoveryMovieRoute(
     modifier: Modifier = Modifier,
     topHeight: Dp = 0.dp,
     @MediaType mediaType: Int = MediaType.MOVIE, // 0-Movie 1-TV
-    onPullRefreshProgress: (Float) -> Unit = {},
     toDetail: (MediaItem?, Int) -> Unit = { _, _ -> },
     viewModel: DiscoveryMovieViewModel = hiltViewModel(),
 ) {
@@ -56,7 +55,6 @@ fun DiscoveryMovieRoute(
         modifier = modifier,
         topHeight = topHeight,
         mediaType = mediaType,
-        onPullRefreshProgress = onPullRefreshProgress,
         movieList = discoveryMoviePagingSource,
         onBuildImage = { path, type ->
             config.buildImageUrl(path, type)
@@ -71,7 +69,6 @@ fun DiscoveryMoviePage(
     modifier: Modifier = Modifier,
     topHeight: Dp = 0.dp,
     @MediaType mediaType: Int = MediaType.MOVIE, // 0-Movie 1-TV
-    onPullRefreshProgress: (Float) -> Unit = {},
     movieList: LazyPagingItems<MediaItem>? = null,
     onBuildImage: (String?, @ImageType Int) -> String? = { url, _ -> url },
     toDetail: (MediaItem?, Int) -> Unit = { _, _ -> },
@@ -83,10 +80,6 @@ fun DiscoveryMoviePage(
     val refreshState = rememberPullRefreshState(isRefreshing, onRefresh = {
         movieList?.refresh()
     })
-
-//    LaunchedEffect(refreshState.progress) {
-//        onPullRefreshProgress(refreshState.progress)
-//    }
 
     LaunchedEffect(movieList?.loadState) {
         isRefreshing = movieList?.loadState?.refresh is LoadState.Loading

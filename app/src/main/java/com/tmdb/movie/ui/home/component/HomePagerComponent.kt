@@ -5,8 +5,6 @@ import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.compose.animation.core.AnimationSpec
-import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -43,12 +41,11 @@ import androidx.compose.ui.util.lerp
 import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.google.accompanist.placeholder.PlaceholderDefaults
-import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material.shimmerHighlightColor
-import com.google.accompanist.placeholder.placeholder
-import com.google.accompanist.placeholder.shimmer
 import com.tmdb.movie.R
+import com.tmdb.movie.component.PlaceholderDefaults
+import com.tmdb.movie.component.PlaceholderHighlight
+import com.tmdb.movie.component.placeholder
+import com.tmdb.movie.component.shimmer
 import com.tmdb.movie.data.ImageSize
 import com.tmdb.movie.data.ImageType
 import com.tmdb.movie.data.MediaItem
@@ -110,7 +107,9 @@ fun HomePagerComponent(
             .distinctUntilChanged()
             .collect { page ->
                 val movieItem = movieList[page % movieList.size]
-                onPageChanged(onBuildImage(movieItem.posterPath, ImageType.POSTER, ImageSize.SMALL) ?: "")
+                onPageChanged(
+                    onBuildImage(movieItem.posterPath, ImageType.POSTER, ImageSize.SMALL) ?: ""
+                )
             }
     }
 
@@ -126,7 +125,8 @@ fun HomePagerComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .graphicsLayer {
-                    val pageOffset = ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
+                    val pageOffset =
+                        ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
                     scaleX = lerp(
                         start = 0.85f,
                         stop = 1f,
@@ -158,7 +158,8 @@ fun HomePagerComponent(
                             navigateToMovieDetail(movieItem.id, MediaType.MOVIE)
                         } else {
                             coroutineScope.launch {
-                                pagerState.animateScrollToPage(page,
+                                pagerState.animateScrollToPage(
+                                    page,
                                     animationSpec = tween(500)
                                 )
                             }
@@ -176,7 +177,8 @@ fun HomePagerComponent(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .graphicsLayer {
-                        val pageOffset = ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
+                        val pageOffset =
+                            ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction).absoluteValue
                         alpha = lerp(
                             start = 0.0f,
                             stop = 1f,

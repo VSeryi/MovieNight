@@ -34,7 +34,8 @@ class TMDBNetworkInterceptor(
                 }
             }
             val contentType = response.body?.contentType()
-            val charset: Charset = contentType?.charset(StandardCharsets.UTF_8) ?: StandardCharsets.UTF_8
+            val charset: Charset =
+                contentType?.charset(StandardCharsets.UTF_8) ?: StandardCharsets.UTF_8
             buffer.clone().readString(charset)
             val errorStr = buffer.clone().readString(charset)
             if (errorStr.isNotEmpty()) {
